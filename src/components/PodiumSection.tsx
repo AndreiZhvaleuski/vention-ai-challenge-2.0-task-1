@@ -44,6 +44,7 @@ export default function PodiumSection({ top3 }: Props) {
             {/* Avatar with rank badge */}
             <Box sx={{ position: 'relative', mb: 1 }}>
               <Avatar
+                src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${employee.id}`}
                 sx={{
                   bgcolor: employee.avatarColor,
                   width: place.avatarSize,
