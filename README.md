@@ -1,6 +1,8 @@
-# React + TypeScript + Vite
+# Vention AI Challenge — Company Leaderboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live demo:** https://andreizhvaleuski.github.io/vention-ai-challenge-2.0/
+
+A company leaderboard app built with React, Vite, TypeScript, and MUI v9.
 
 Currently, two official plugins are available:
 
