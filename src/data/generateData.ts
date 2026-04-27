@@ -129,7 +129,6 @@ export function generateData(seed: string): Employee[] {
         category: cat,
         date: new Date(year, month - 1, day),
         points: randInt(1, 10),
-        year,
         quarter,
       });
     }

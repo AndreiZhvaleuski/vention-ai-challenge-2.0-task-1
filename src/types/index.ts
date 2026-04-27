@@ -6,7 +6,6 @@ export interface Activity {
   category: Category;
   date: Date;
   points: number;
-  year: number;
   quarter: 1 | 2 | 3 | 4;
 }
 

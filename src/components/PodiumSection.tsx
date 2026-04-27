@@ -92,15 +92,13 @@ export default function PodiumSection({ top3 }: Props) {
               {employee.firstName} {employee.lastName}
             </Typography>
 
-            {/* Title (Dept.) — rank 1 only */}
-            {place.rank === 1 && (
-              <Typography
-                variant="caption"
-                sx={{ color: 'text.secondary', textAlign: 'center', maxWidth: 160, mb: 1 }}
-              >
-                {employee.title} ({employee.department})
-              </Typography>
-            )}
+            {/* Title */}
+            <Typography
+              variant="caption"
+              sx={{ color: 'text.secondary', textAlign: 'center', maxWidth: place.rank === 1 ? 160 : 130, mb: 1 }}
+            >
+              {employee.title} ({employee.department})
+            </Typography>
 
             {/* Points pill */}
             <Box

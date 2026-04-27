@@ -53,7 +53,7 @@ export function useLeaderboard() {
       if (!nameMatch) continue;
 
       const activities = emp.activities.filter((a) => {
-        if (year && String(a.year) !== year) return false;
+        if (year && String(a.date.getFullYear()) !== year) return false;
         if (quarter && String(a.quarter) !== quarter.replace('Q', '')) return false;
         if (category && a.category !== category) return false;
         return true;
