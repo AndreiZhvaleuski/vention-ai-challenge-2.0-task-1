@@ -29,7 +29,7 @@ export default function PodiumSection({ top3 }: Props) {
   if (top3.length === 0) return null;
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: 2, mb: 4 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: { xs: 1, sm: 2 }, mb: 4 }}>
       {PLACES.map((place) => {
         const entry = top3[TOP3_INDEX[place.rank]];
         if (!entry) return null;
@@ -47,9 +47,9 @@ export default function PodiumSection({ top3 }: Props) {
                 src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${employee.id}`}
                 sx={{
                   bgcolor: employee.avatarColor,
-                  width: place.avatarSize,
-                  height: place.avatarSize,
-                  fontSize: place.avatarSize * 0.35,
+                  width: { xs: Math.round(place.avatarSize * 0.65), sm: place.avatarSize },
+                  height: { xs: Math.round(place.avatarSize * 0.65), sm: place.avatarSize },
+                  fontSize: { xs: place.avatarSize * 0.65 * 0.35, sm: place.avatarSize * 0.35 },
                   border: place.rank === 1 ? `3px solid ${place.badgeColor}` : 'none',
                 }}
               >
@@ -86,7 +86,7 @@ export default function PodiumSection({ top3 }: Props) {
               sx={{
                 fontWeight: 700,
                 textAlign: 'center',
-                maxWidth: place.rank === 1 ? 200 : 140,
+                maxWidth: { xs: place.rank === 1 ? 90 : 70, sm: place.rank === 1 ? 200 : 140 },
                 mb: 0.25,
               }}
             >
@@ -96,7 +96,7 @@ export default function PodiumSection({ top3 }: Props) {
             {/* Title */}
             <Typography
               variant="caption"
-              sx={{ color: 'text.secondary', textAlign: 'center', maxWidth: place.rank === 1 ? 160 : 130, mb: 1 }}
+              sx={{ color: 'text.secondary', textAlign: 'center', maxWidth: { xs: place.rank === 1 ? 80 : 65, sm: place.rank === 1 ? 160 : 130 }, mb: 1 }}
             >
               {employee.title} ({employee.department})
             </Typography>
@@ -125,8 +125,8 @@ export default function PodiumSection({ top3 }: Props) {
             {/* Pedestal */}
             <Box
               sx={{
-                width: 200,
-                height: place.pedestalHeight,
+                width: { xs: 90, sm: 200 },
+                height: { xs: Math.round(place.pedestalHeight * 0.6), sm: place.pedestalHeight },
                 bgcolor: place.pedestalColor,
                 borderRadius: '8px 8px 0 0',
                 display: 'flex',

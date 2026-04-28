@@ -13,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="lg" sx={{ py: 4, overflowX: 'hidden' }}>
         <Typography variant="h4" sx={{ fontWeight: 800, color: '#0f1c2e', mb: 0.5 }}>
           Leaderboard
         </Typography>

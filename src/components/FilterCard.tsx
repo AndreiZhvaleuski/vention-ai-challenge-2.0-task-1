@@ -22,9 +22,16 @@ interface Props {
 export default function FilterCard({ filters, setters }: Props) {
   return (
     <Paper variant="outlined" sx={{ p: 2, mb: 3, borderRadius: 2 }}>
-      <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', alignItems: 'center' }}>
-
-        <FormControl size="small" sx={{ minWidth: 130 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: 1.5,
+          alignItems: { xs: 'stretch', sm: 'center' },
+          flexWrap: { sm: 'wrap' },
+        }}
+      >
+        <FormControl size="small" sx={{ minWidth: { sm: 130 } }}>
           <Select
             displayEmpty
             value={filters.year}
@@ -39,7 +46,7 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: 140 }}>
+        <FormControl size="small" sx={{ minWidth: { sm: 140 } }}>
           <Select
             displayEmpty
             value={filters.quarter}
@@ -54,7 +61,7 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: 185 }}>
+        <FormControl size="small" sx={{ minWidth: { sm: 185 } }}>
           <Select
             displayEmpty
             value={filters.category}
@@ -74,7 +81,7 @@ export default function FilterCard({ filters, setters }: Props) {
           value={filters.search}
           onChange={(e) => setters.setSearch(e.target.value)}
           size="small"
-          sx={{ flexGrow: 1, minWidth: 180 }}
+          sx={{ flexGrow: 1, minWidth: { sm: 180 } }}
           slotProps={{
             input: {
               startAdornment: (
