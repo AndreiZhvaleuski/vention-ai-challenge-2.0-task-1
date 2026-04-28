@@ -94,7 +94,7 @@ export default function PodiumSection({ top3 }: Props) {
 
               {/* Name */}
               <Typography
-                variant={place.rank === 1 ? 'subtitle1' : 'body2'}
+                variant="subtitle1"
                 sx={{ fontWeight: 700, textAlign: 'center', mb: 0.25 }}
               >
                 {employee.firstName} {employee.lastName}
@@ -200,8 +200,8 @@ export default function PodiumSection({ top3 }: Props) {
 
               {/* Name */}
               <Typography
-                variant={place.rank === 1 ? 'h6' : 'subtitle1'}
-                sx={{ fontWeight: 700, textAlign: 'center', maxWidth: place.rank === 1 ? 240 : 180, mb: 0.25 }}
+                variant="subtitle1"
+                sx={{ fontWeight: 700, textAlign: 'center', mb: 0.25 }}
               >
                 {employee.firstName} {employee.lastName}
               </Typography>
