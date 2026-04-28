@@ -107,7 +107,7 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
           </Box>
 
           {/* Expand toggle */}
-          <IconButton size="small" onClick={onToggle} sx={{ color: colors.accent }}>
+          <IconButton size="small" onClick={onToggle} sx={{ color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } }}>
             {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>
