@@ -160,7 +160,7 @@ export default function PodiumSection({ top3 }: Props) {
           return (
             <Box
               key={place.rank}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '1 1 0', minWidth: 0 }}
             >
               {/* Avatar with rank badge */}
               <Box sx={{ position: 'relative', mb: 1 }}>
