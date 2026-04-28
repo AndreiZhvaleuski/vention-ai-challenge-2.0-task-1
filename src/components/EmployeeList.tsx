@@ -1,10 +1,7 @@
-import { useRef } from 'react';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import Alert from '@mui/material/Alert';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import EmployeeCard from './EmployeeCard';
-
-const LIST_HEIGHT = '70vh';
 
 interface Props {
   entries: FilteredEmployee[];
@@ -26,35 +23,30 @@ export default function EmployeeList({ entries }: Props) {
 }
 
 function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const virtualizer = useVirtualizer({
+  const virtualizer = useWindowVirtualizer({
     count: rest.length,
-    getScrollElement: () => scrollRef.current,
     estimateSize: () => 80,
     overscan: 5,
   });
 
   return (
-    <div ref={scrollRef} style={{ height: LIST_HEIGHT, overflow: 'auto' }}>
-      <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
-        {virtualizer.getVirtualItems().map((vItem) => (
-          <div
-            key={vItem.key}
-            data-index={vItem.index}
-            ref={virtualizer.measureElement}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              transform: `translateY(${vItem.start}px)`,
-            }}
-          >
-            <EmployeeCard key={rest[vItem.index].employee.id} rank={vItem.index + 4} entry={rest[vItem.index]} />
-          </div>
-        ))}
-      </div>
+    <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+      {virtualizer.getVirtualItems().map((vItem) => (
+        <div
+          key={vItem.key}
+          data-index={vItem.index}
+          ref={virtualizer.measureElement}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            transform: `translateY(${vItem.start}px)`,
+          }}
+        >
+          <EmployeeCard key={rest[vItem.index].employee.id} rank={vItem.index + 4} entry={rest[vItem.index]} />
+        </div>
+      ))}
     </div>
   );
 }
