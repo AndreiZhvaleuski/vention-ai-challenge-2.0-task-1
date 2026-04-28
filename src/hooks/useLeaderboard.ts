@@ -7,6 +7,7 @@ export interface FilteredEmployee {
   employee: Employee;
   filteredActivities: Activity[];
   totalPoints: number;
+  rank: number;
 }
 
 export interface Filters {
@@ -40,18 +41,10 @@ export function useLeaderboard() {
 
   const employees = useMemo(() => generateData(debouncedSeed), [debouncedSeed]);
 
-  const filteredEmployees = useMemo((): FilteredEmployee[] => {
-    const result: FilteredEmployee[] = [];
+  const rankedEmployees = useMemo((): FilteredEmployee[] => {
+    const result: Omit<FilteredEmployee, 'rank'>[] = [];
 
     for (const emp of employees) {
-      const nameMatch =
-        search === '' ||
-        `${emp.firstName} ${emp.lastName}`
-          .toLowerCase()
-          .includes(search.toLowerCase());
-
-      if (!nameMatch) continue;
-
       const activities = emp.activities.filter((a) => {
         if (year && String(a.date.getFullYear()) !== year) return false;
         if (quarter && String(a.quarter) !== quarter.replace('Q', '')) return false;
@@ -66,14 +59,24 @@ export function useLeaderboard() {
     }
 
     result.sort((a, b) => b.totalPoints - a.totalPoints);
-    return result;
-  }, [employees, year, quarter, category, search]);
+    return result.map((e, i) => ({ ...e, rank: i + 1 }));
+  }, [employees, year, quarter, category]);
+
+  const filteredEmployees = useMemo((): FilteredEmployee[] => {
+    if (search === '') return rankedEmployees;
+    return rankedEmployees.filter((e) =>
+      `${e.employee.firstName} ${e.employee.lastName}`
+        .toLowerCase()
+        .includes(search.toLowerCase()),
+    );
+  }, [rankedEmployees, search]);
 
   return {
     seed,
     setSeed,
     filters: { year, quarter, category, search },
     setters: { setYear, setQuarter, setCategory, setSearch } as FilterSetters,
+    rankedEmployees,
     filteredEmployees,
   };
 }
