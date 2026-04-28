@@ -112,7 +112,7 @@ function App() {
           onClose={() => setDialogOpen(false)}
           maxWidth="xs"
           fullWidth
-          TransitionComponent={SlideUp}
+          slots={{ transition: SlideUp }}
         >
           <DialogTitle>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
