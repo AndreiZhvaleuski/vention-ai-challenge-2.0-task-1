@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import Alert from '@mui/material/Alert';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
@@ -23,14 +24,17 @@ export default function EmployeeList({ entries }: Props) {
 }
 
 function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const virtualizer = useWindowVirtualizer({
     count: rest.length,
     estimateSize: () => 80,
     overscan: 5,
+    scrollMargin: containerRef.current?.offsetTop ?? 0,
   });
 
   return (
-    <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+    <div ref={containerRef} style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
       {virtualizer.getVirtualItems().map((vItem) => (
         <div
           key={vItem.key}
@@ -41,7 +45,7 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
             top: 0,
             left: 0,
             width: '100%',
-            transform: `translateY(${vItem.start}px)`,
+            transform: `translateY(${vItem.start - virtualizer.options.scrollMargin}px)`,
           }}
         >
           <EmployeeCard key={rest[vItem.index].employee.id} rank={vItem.index + 4} entry={rest[vItem.index]} />
