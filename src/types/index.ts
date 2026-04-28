@@ -16,5 +16,7 @@ export interface Employee {
   title: string;
   department: string;
   avatarColor: string;
+  avatarUrl: string;
+  avatarUrlLarge: string;
   activities: Activity[];
 }

@@ -52,7 +52,7 @@ export default function EmployeeCard({ rank, entry }: Props) {
 
         {/* Avatar */}
         <Avatar
-          src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${employee.id}`}
+          src={employee.avatarUrl}
           slotProps={{ img: { loading: 'lazy' } }}
           sx={{
             bgcolor: employee.avatarColor,

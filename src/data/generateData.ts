@@ -277,13 +277,16 @@ export function generateData(seed: string): Employee[] {
       });
     }
 
+    const id = String(i);
     employees.push({
-      id: String(i),
+      id,
       firstName,
       lastName,
       title: pick(TITLES),
       department: pick(DEPARTMENTS),
       avatarColor: pick(AVATAR_COLORS),
+      avatarUrl: `https://api.dicebear.com/9.x/avataaars/svg?seed=${id}&size=64`,
+      avatarUrlLarge: `https://api.dicebear.com/9.x/avataaars/svg?seed=${id}&size=128`,
       activities,
     });
   }
