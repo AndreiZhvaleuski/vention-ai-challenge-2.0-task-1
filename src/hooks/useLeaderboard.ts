@@ -26,35 +26,53 @@ export interface FilterSetters {
 
 export const DEFAULT_SEED = 'vention-ai-challenge-2.0';
 
-function getSeedFromUrl(): string {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('seed') ?? DEFAULT_SEED;
+interface UrlState {
+  seed: string;
+  year: string;
+  quarter: string;
+  category: string;
+  search: string;
 }
 
-function setSeedInUrl(seed: string): void {
+function readFromUrl(): UrlState {
   const params = new URLSearchParams(window.location.search);
-  params.set('seed', seed);
-  window.history.replaceState(null, '', `?${params.toString()}`);
+  return {
+    seed: params.get('seed') ?? DEFAULT_SEED,
+    year: params.get('year') ?? '',
+    quarter: params.get('quarter') ?? '',
+    category: params.get('category') ?? '',
+    search: params.get('search') ?? '',
+  };
 }
+
+function syncToUrl(seed: string, year: string, quarter: string, category: string, search: string): void {
+  const params = new URLSearchParams();
+  if (seed !== DEFAULT_SEED) params.set('seed', seed);
+  if (year) params.set('year', year);
+  if (quarter) params.set('quarter', quarter);
+  if (category) params.set('category', category);
+  if (search) params.set('search', search);
+  const qs = params.toString();
+  window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+}
+
+const initialUrlState = readFromUrl();
 
 export function useLeaderboard() {
-  const [seed, setSeedState] = useState<string>(() => {
-    const urlSeed = getSeedFromUrl();
-    if (!new URLSearchParams(window.location.search).has('seed')) {
-      setSeedInUrl(DEFAULT_SEED);
-    }
-    return urlSeed;
-  });
+  const [seed, setSeedState] = useState<string>(initialUrlState.seed);
   const [debouncedSeed, setDebouncedSeed] = useState(seed);
-  const [year, setYear] = useState('');
-  const [quarter, setQuarter] = useState('');
-  const [category, setCategory] = useState<Category | ''>('');
-  const [search, setSearch] = useState('');
+  const [year, setYear] = useState(initialUrlState.year);
+  const [quarter, setQuarter] = useState(initialUrlState.quarter);
+  const [category, setCategory] = useState<Category | ''>(initialUrlState.category as Category | '');
+  const [search, setSearch] = useState(initialUrlState.search);
 
   const setSeed = (newSeed: string) => {
-    setSeedInUrl(newSeed);
     setSeedState(newSeed);
   };
+
+  useEffect(() => {
+    syncToUrl(seed, year, quarter, category, search);
+  }, [seed, year, quarter, category, search]);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSeed(seed), 400);
