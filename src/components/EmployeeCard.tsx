@@ -99,8 +99,8 @@ function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
           <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'flex' } }} />
 
           {/* TOTAL label + star + points */}
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: 0.5, lineHeight: 1.2 }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'flex-end' }}>
+            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: 0.5, lineHeight: 1.2, textAlign: 'right' }}>
               TOTAL
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
