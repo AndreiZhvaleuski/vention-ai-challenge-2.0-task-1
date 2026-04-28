@@ -8,7 +8,7 @@ import PodiumSection from './components/PodiumSection';
 import EmployeeList from './components/EmployeeList';
 
 function App() {
-  const { filters, setters, filteredEmployees } = useLeaderboard();
+  const { filters, setters, rankedEmployees, filteredEmployees } = useLeaderboard();
 
   return (
     <ThemeProvider theme={theme}>
@@ -26,7 +26,7 @@ function App() {
           setters={setters}
         />
 
-        <PodiumSection top3={filteredEmployees.slice(0, 3)} />
+        <PodiumSection top3={rankedEmployees.slice(0, 3)} />
 
         <EmployeeList entries={filteredEmployees} />
       </Container>

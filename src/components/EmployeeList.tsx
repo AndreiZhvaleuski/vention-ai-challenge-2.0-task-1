@@ -18,7 +18,7 @@ export default function EmployeeList({ entries }: Props) {
   }
 
   // Ranks 1-3 go to the podium; this list starts at rank 4
-  const rest = entries.slice(3);
+  const rest = entries.filter((e) => e.rank > 3);
 
   return <VirtualizedList rest={rest} />;
 }
@@ -54,7 +54,7 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
               transform: `translateY(${vItem.start - virtualizer.options.scrollMargin}px)`,
             }}
           >
-            <EmployeeCard rank={vItem.index + 4} entry={rest[vItem.index]} />
+            <EmployeeCard rank={rest[vItem.index].rank} entry={rest[vItem.index]} />
           </div>
         ))}
       </div>
