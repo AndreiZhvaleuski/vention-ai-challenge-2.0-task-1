@@ -54,6 +54,7 @@ export default function PodiumSection({ top3 }: Props) {
               <Box sx={{ position: 'relative', mb: 1, mt: place.rank === 1 ? 0 : 2 }}>
                 <Avatar
                   src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${employee.id}`}
+                  slotProps={{ img: { loading: 'lazy' } }}
                   sx={{
                     bgcolor: employee.avatarColor,
                     width: place.avatarSize,
@@ -160,6 +161,7 @@ export default function PodiumSection({ top3 }: Props) {
               <Box sx={{ position: 'relative', mb: 1 }}>
                 <Avatar
                   src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${employee.id}`}
+                  slotProps={{ img: { loading: 'lazy' } }}
                   sx={{
                     bgcolor: employee.avatarColor,
                     width: place.avatarSize,
