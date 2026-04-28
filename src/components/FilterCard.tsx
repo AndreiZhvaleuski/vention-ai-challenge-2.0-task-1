@@ -28,13 +28,12 @@ export default function FilterCard({ filters, setters }: Props) {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
+          flexDirection: { xs: 'column', md: 'row' },
           gap: 1.5,
-          alignItems: { xs: 'stretch', sm: 'center' },
-          flexWrap: { sm: 'wrap' },
+          alignItems: { xs: 'stretch', md: 'center' },
         }}
       >
-        <FormControl size="small" sx={{ flex: { sm: 1 } }}>
+        <FormControl size="small" sx={{ flex: { md: 1 } }}>
           <Select
             displayEmpty
             value={filters.year}
@@ -50,7 +49,7 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ flex: { sm: 1 } }}>
+        <FormControl size="small" sx={{ flex: { md: 1 } }}>
           <Select
             displayEmpty
             value={filters.quarter}
@@ -66,7 +65,7 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ flex: { sm: 1 } }}>
+        <FormControl size="small" sx={{ flex: { md: 1 } }}>
           <Select
             displayEmpty
             value={filters.category}
@@ -87,7 +86,7 @@ export default function FilterCard({ filters, setters }: Props) {
           value={filters.search}
           onChange={(e) => setters.setSearch(e.target.value)}
           size="small"
-          sx={{ width: '100%', '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
+          sx={{ flex: { md: 2 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
           onFocus={() => setSearchFocused(true)}
           onBlur={() => setSearchFocused(false)}
           slotProps={{
