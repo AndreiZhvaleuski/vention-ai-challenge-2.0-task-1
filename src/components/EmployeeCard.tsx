@@ -86,9 +86,9 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
             if (count === 0) return null;
             return (
               <Tooltip key={cat} title={cat}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'text.secondary' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: colors.accent }}>
                   {CATEGORY_ICONS[cat]}
-                  <Typography variant="caption" sx={{ lineHeight: 1.2 }}>{count}</Typography>
+                  <Typography variant="caption" sx={{ lineHeight: 1.2, color: 'text.secondary' }}>{count}</Typography>
                 </Box>
               </Tooltip>
             );
