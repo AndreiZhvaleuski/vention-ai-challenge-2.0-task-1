@@ -40,7 +40,7 @@ export default function EmployeeCard({ rank, entry }: Props) {
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
   return (
-    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3 }}>
+    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: expanded ? '1px solid #e2e8f0' : 'none' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
         {/* Rank */}
         <Typography
