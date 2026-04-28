@@ -34,7 +34,7 @@ export default function FilterCard({ filters, setters }: Props) {
           flexWrap: { sm: 'wrap' },
         }}
       >
-        <FormControl size="small" sx={{ minWidth: { sm: 130 } }}>
+        <FormControl size="small" sx={{ flex: { sm: 1 } }}>
           <Select
             displayEmpty
             value={filters.year}
@@ -50,7 +50,7 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: { sm: 140 } }}>
+        <FormControl size="small" sx={{ flex: { sm: 1 } }}>
           <Select
             displayEmpty
             value={filters.quarter}
@@ -66,7 +66,7 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: { sm: 185 } }}>
+        <FormControl size="small" sx={{ flex: { sm: 1 } }}>
           <Select
             displayEmpty
             value={filters.category}
@@ -87,7 +87,7 @@ export default function FilterCard({ filters, setters }: Props) {
           value={filters.search}
           onChange={(e) => setters.setSearch(e.target.value)}
           size="small"
-          sx={{ flexGrow: 1, minWidth: { sm: 180 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
+          sx={{ width: '100%', '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
           onFocus={() => setSearchFocused(true)}
           onBlur={() => setSearchFocused(false)}
           slotProps={{
