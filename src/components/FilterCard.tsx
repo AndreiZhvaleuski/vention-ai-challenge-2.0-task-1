@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -20,6 +21,8 @@ interface Props {
 }
 
 export default function FilterCard({ filters, setters }: Props) {
+  const [searchFocused, setSearchFocused] = useState(false);
+
   return (
     <Paper variant="outlined" sx={{ p: 2, mb: 3, borderRadius: 2 }}>
       <Box
@@ -85,13 +88,15 @@ export default function FilterCard({ filters, setters }: Props) {
           onChange={(e) => setters.setSearch(e.target.value)}
           size="small"
           sx={{ flexGrow: 1, minWidth: { sm: 180 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
+          onFocus={() => setSearchFocused(true)}
+          onBlur={() => setSearchFocused(false)}
           slotProps={{
             input: {
-              startAdornment: (
+              startAdornment: !searchFocused ? (
                 <InputAdornment position="start">
                   <SearchIcon fontSize="small" sx={{ color: 'text.secondary' }} />
                 </InputAdornment>
-              ),
+              ) : null,
               endAdornment: filters.search ? (
                 <InputAdornment position="end">
                   <IconButton size="small" onClick={() => setters.setSearch('')}>
