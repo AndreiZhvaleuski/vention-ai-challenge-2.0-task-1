@@ -4,6 +4,8 @@ import Alert from '@mui/material/Alert';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import EmployeeCard from './EmployeeCard';
 
+const LIST_HEIGHT = '70vh';
+
 interface Props {
   entries: FilteredEmployee[];
 }
@@ -34,7 +36,7 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
   });
 
   return (
-    <div ref={scrollRef} style={{ height: '70vh', overflow: 'auto' }}>
+    <div ref={scrollRef} style={{ height: LIST_HEIGHT, overflow: 'auto' }}>
       <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
         {virtualizer.getVirtualItems().map((vItem) => (
           <div
@@ -49,7 +51,7 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
               transform: `translateY(${vItem.start}px)`,
             }}
           >
-            <EmployeeCard rank={vItem.index + 4} entry={rest[vItem.index]} />
+            <EmployeeCard key={rest[vItem.index].employee.id} rank={vItem.index + 4} entry={rest[vItem.index]} />
           </div>
         ))}
       </div>
