@@ -41,7 +41,7 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
   return (
-    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: isExpanded ? `1px solid ${colors.accent}` : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
+    <Paper sx={{ mb: 2, overflow: 'hidden', borderRadius: 3, border: isExpanded ? `1px solid ${colors.accent}` : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
         {/* Rank */}
         <Typography
