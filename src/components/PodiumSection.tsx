@@ -44,7 +44,7 @@ export default function PodiumSection({ top3 }: Props) {
   return (
     <>
       {/* Mobile layout: stacked podium cards 1 → 2 → 3 */}
-      <Box sx={{ display: { xs: 'flex', sm: 'none' }, flexDirection: 'column', gap: 0, mb: 4 }}>
+      <Box sx={{ display: { xs: 'flex', md: 'none' }, flexDirection: 'column', gap: 0, mb: 4 }}>
         {PLACES_MOBILE.map((place) => {
           const entry = top3[TOP3_INDEX[place.rank]];
           if (!entry) return null;
@@ -129,7 +129,7 @@ export default function PodiumSection({ top3 }: Props) {
               {/* Pedestal */}
               <Box
                 sx={{
-                  width: '80%',
+                  width: { xs: '80%', sm: '50%', md: '80%' },
                   height: place.pedestalHeight,
                   bgcolor: place.pedestalColor,
                   borderRadius: '8px 8px 0 0',
@@ -150,7 +150,7 @@ export default function PodiumSection({ top3 }: Props) {
       </Box>
 
       {/* Desktop layout: podium (2nd, 1st, 3rd) */}
-      <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'center', alignItems: 'flex-end', gap: 2, mb: 4, width: '80%', mx: 'auto' }}>
+      <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'flex-end', gap: 2, mb: 4, width: '80%', mx: 'auto' }}>
         {PLACES.map((place) => {
           const entry = top3[TOP3_INDEX[place.rank]];
           if (!entry) return null;
