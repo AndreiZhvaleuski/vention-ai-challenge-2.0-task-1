@@ -36,9 +36,10 @@ const TOP3_INDEX: Record<1 | 2 | 3, number> = { 1: 0, 2: 1, 3: 2 };
 
 interface Props {
   top3: FilteredEmployee[];
+  filteredIds?: Set<string>;
 }
 
-export default function PodiumSection({ top3 }: Props) {
+export default function PodiumSection({ top3, filteredIds }: Props) {
   if (top3.length === 0) return null;
 
   return (
@@ -48,6 +49,7 @@ export default function PodiumSection({ top3 }: Props) {
         {PLACES_MOBILE.map((place) => {
           const entry = top3[TOP3_INDEX[place.rank]];
           if (!entry) return null;
+          if (filteredIds && !filteredIds.has(entry.employee.id)) return null;
           const { employee, totalPoints } = entry;
           const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
@@ -154,14 +156,14 @@ export default function PodiumSection({ top3 }: Props) {
       <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'flex-end', gap: 2, mb: 4, width: '80%', mx: 'auto' }}>
         {PLACES.map((place) => {
           const entry = top3[TOP3_INDEX[place.rank]];
-          if (!entry) return null;
+          if (!entry || (filteredIds && !filteredIds.has(entry.employee.id))) return null;
           const { employee, totalPoints } = entry;
           const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
           return (
             <Box
               key={place.rank}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '1 1 0', minWidth: 0 }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '0 0 auto', width: '33%' }}
             >
               {/* Avatar with rank badge */}
               <Box sx={{ position: 'relative', mb: 1 }}>

@@ -103,7 +103,10 @@ function App() {
           setters={setters}
         />
 
-        <PodiumSection top3={rankedEmployees.slice(0, 3)} />
+        <PodiumSection
+          top3={rankedEmployees.filter((e) => e.rank <= 3)}
+          filteredIds={new Set(filteredEmployees.map((e) => e.employee.id))}
+        />
 
         <EmployeeList entries={filteredEmployees} />
 
