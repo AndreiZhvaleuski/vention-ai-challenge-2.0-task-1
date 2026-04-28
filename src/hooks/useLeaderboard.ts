@@ -24,15 +24,37 @@ export interface FilterSetters {
   setSearch: (v: string) => void;
 }
 
-const DEFAULT_SEED = 'vention2025';
+export const DEFAULT_SEED = 'vention-ai-challenge-2.0';
+
+function getSeedFromUrl(): string {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('seed') ?? DEFAULT_SEED;
+}
+
+function setSeedInUrl(seed: string): void {
+  const params = new URLSearchParams(window.location.search);
+  params.set('seed', seed);
+  window.history.replaceState(null, '', `?${params.toString()}`);
+}
 
 export function useLeaderboard() {
-  const [seed, setSeed] = useState(DEFAULT_SEED);
-  const [debouncedSeed, setDebouncedSeed] = useState(DEFAULT_SEED);
+  const [seed, setSeedState] = useState<string>(() => {
+    const urlSeed = getSeedFromUrl();
+    if (!new URLSearchParams(window.location.search).has('seed')) {
+      setSeedInUrl(DEFAULT_SEED);
+    }
+    return urlSeed;
+  });
+  const [debouncedSeed, setDebouncedSeed] = useState(seed);
   const [year, setYear] = useState('');
   const [quarter, setQuarter] = useState('');
   const [category, setCategory] = useState<Category | ''>('');
   const [search, setSearch] = useState('');
+
+  const setSeed = (newSeed: string) => {
+    setSeedInUrl(newSeed);
+    setSeedState(newSeed);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSeed(seed), 400);
