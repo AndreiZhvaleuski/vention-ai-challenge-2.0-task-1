@@ -8,22 +8,20 @@ import PodiumSection from './components/PodiumSection';
 import EmployeeList from './components/EmployeeList';
 
 function App() {
-  const { seed, setSeed, filters, setters, filteredEmployees } = useLeaderboard();
+  const { filters, setters, filteredEmployees } = useLeaderboard();
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Typography variant="h4" sx={{ fontWeight: 700 }} gutterBottom>
+        <Typography variant="h4" sx={{ fontWeight: 800, color: '#0f1c2e', mb: 0.5 }}>
           Leaderboard
         </Typography>
-        <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 3 }}>
-          Top performers based on contributions and activity.
+        <Typography variant="body2" sx={{ color: '#6b7db3', mb: 3 }}>
+          Top performers based on contributions and activity
         </Typography>
 
         <FilterCard
-          seed={seed}
-          onSeedChange={setSeed}
           filters={filters}
           setters={setters}
         />

@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,30 +15,22 @@ const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
 const CATEGORIES = ['Education', 'Public Speaking', 'University Partnerships'];
 
 interface Props {
-  seed: string;
-  onSeedChange: (v: string) => void;
   filters: Filters;
   setters: FilterSetters;
 }
 
-export default function FilterCard({ seed, onSeedChange, filters, setters }: Props) {
+export default function FilterCard({ filters, setters }: Props) {
   return (
-    <Paper sx={{ p: 2, mb: 3 }}>
-      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-        <TextField
-          label="Data Seed"
-          value={seed}
-          onChange={(e) => onSeedChange(e.target.value)}
-          size="small"
-          sx={{ minWidth: 160 }}
-        />
+    <Paper variant="outlined" sx={{ p: 2, mb: 3, borderRadius: 2 }}>
+      <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', alignItems: 'center' }}>
 
-        <FormControl size="small" sx={{ minWidth: 140 }}>
-          <InputLabel>All Years</InputLabel>
+        <FormControl size="small" sx={{ minWidth: 130 }}>
           <Select
+            displayEmpty
             value={filters.year}
-            label="All Years"
             onChange={(e) => setters.setYear(e.target.value)}
+            renderValue={(value) => value || 'All Years'}
+            inputProps={{ 'aria-label': 'All Years' }}
           >
             <MenuItem value="">All Years</MenuItem>
             {YEARS.map((y) => (
@@ -48,12 +39,13 @@ export default function FilterCard({ seed, onSeedChange, filters, setters }: Pro
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: 150 }}>
-          <InputLabel>All Quarters</InputLabel>
+        <FormControl size="small" sx={{ minWidth: 140 }}>
           <Select
+            displayEmpty
             value={filters.quarter}
-            label="All Quarters"
             onChange={(e) => setters.setQuarter(e.target.value)}
+            renderValue={(value) => value || 'All Quarters'}
+            inputProps={{ 'aria-label': 'All Quarters' }}
           >
             <MenuItem value="">All Quarters</MenuItem>
             {QUARTERS.map((q) => (
@@ -62,12 +54,13 @@ export default function FilterCard({ seed, onSeedChange, filters, setters }: Pro
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: 210 }}>
-          <InputLabel>All Categories</InputLabel>
+        <FormControl size="small" sx={{ minWidth: 185 }}>
           <Select
+            displayEmpty
             value={filters.category}
-            label="All Categories"
             onChange={(e) => setters.setCategory(e.target.value)}
+            renderValue={(value) => value || 'All Categories'}
+            inputProps={{ 'aria-label': 'All Categories' }}
           >
             <MenuItem value="">All Categories</MenuItem>
             {CATEGORIES.map((c) => (
@@ -77,7 +70,7 @@ export default function FilterCard({ seed, onSeedChange, filters, setters }: Pro
         </FormControl>
 
         <TextField
-          placeholder="Search employees"
+          placeholder="Search employee..."
           value={filters.search}
           onChange={(e) => setters.setSearch(e.target.value)}
           size="small"
@@ -86,7 +79,7 @@ export default function FilterCard({ seed, onSeedChange, filters, setters }: Pro
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon fontSize="small" />
+                  <SearchIcon fontSize="small" sx={{ color: 'text.secondary' }} />
                 </InputAdornment>
               ),
               endAdornment: filters.search ? (
