@@ -43,7 +43,7 @@ export default function ActivityTable({ activities }: Props) {
         </TableHead>
         <TableBody>
           {sorted.map((activity) => (
-            <TableRow key={activity.id}>
+            <TableRow key={activity.id} sx={{ '&:hover': { bgcolor: 'action.hover' } }}>
               <TableCell sx={{ width: '50%' }}>{activity.title}</TableCell>
               <TableCell>
                 <Chip
