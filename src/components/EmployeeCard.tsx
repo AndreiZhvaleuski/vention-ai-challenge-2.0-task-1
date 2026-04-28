@@ -42,7 +42,7 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
 
   return (
     <Paper sx={{ mb: 2, overflow: 'hidden', borderRadius: 3, border: isExpanded ? `1px solid ${colors.accent}` : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' }, px: 2, py: 1.5, gap: 2 }}>
         {/* Rank */}
         <Typography
           variant="body2"
@@ -75,8 +75,11 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
           </Typography>
         </Box>
 
+        {/* xs row break */}
+        <Divider sx={{ display: { xs: 'block', sm: 'none' }, width: '100%', my: 0 }} />
+
         {/* Right side */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0, width: { xs: '100%', sm: 'auto' } }}>
           {/* Per-category counts — icon stacked above count */}
           {CATEGORIES.map((cat) => {
             const count = filteredActivities.filter((a) => a.category === cat).length;
@@ -91,10 +94,10 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
             );
           })}
 
-          <Divider orientation="vertical" flexItem />
+          <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'flex' } }} />
 
           {/* TOTAL label + star + points */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: 0.5, lineHeight: 1.2 }}>
               TOTAL
             </Typography>
@@ -107,7 +110,7 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
           </Box>
 
           {/* Expand toggle */}
-          <IconButton size="small" onClick={onToggle} sx={{ color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } }}>
+          <IconButton size="small" onClick={onToggle} sx={{ ml: { xs: 'auto', sm: 0 }, color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } }}>
             {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>
