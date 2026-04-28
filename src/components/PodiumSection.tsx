@@ -9,6 +9,7 @@ interface PodiumPlace {
   rank: 1 | 2 | 3;
   badgeColor: string;
   avatarBadgeColor: string;
+  avatarBorderColor: string;
   pedestalColor: string;
   pedestalHeight: number;
   avatarSize: number;
@@ -19,16 +20,16 @@ interface PodiumPlace {
 
 // Render order desktop: [2nd, 1st, 3rd]
 const PLACES: PodiumPlace[] = [
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 150, avatarSize: 80, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
-  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 190, avatarSize: 104, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
-  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 120, avatarSize: 72, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 180, avatarSize: 108, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', avatarBorderColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 220, avatarSize: 136, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
+  { rank: 3, badgeColor: '#94a3b8', avatarBadgeColor: '#b87333', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 150, avatarSize: 96, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 // Render order mobile: [1st, 2nd, 3rd]
 const PLACES_MOBILE: PodiumPlace[] = [
-  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 56, avatarSize: 80, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 48, avatarSize: 72, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
-  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 40, avatarSize: 64, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', avatarBorderColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 72, avatarSize: 100, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
+  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 60, avatarSize: 88, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 3, badgeColor: '#94a3b8', avatarBadgeColor: '#b87333', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 52, avatarSize: 80, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 const TOP3_INDEX: Record<1 | 2 | 3, number> = { 1: 0, 2: 1, 3: 2 };
@@ -65,7 +66,7 @@ export default function PodiumSection({ top3 }: Props) {
                     width: place.avatarSize,
                     height: place.avatarSize,
                     fontSize: place.avatarSize * 0.35,
-                    border: place.rank === 1 ? `3px solid ${place.avatarBadgeColor}` : 'none',
+                    border: `3px solid ${place.avatarBorderColor}`,
                   }}
                 >
                   {initials}
@@ -100,7 +101,7 @@ export default function PodiumSection({ top3 }: Props) {
               </Typography>
 
               {/* Title */}
-              <Typography variant="caption" sx={{ color: 'text.secondary', textAlign: 'center', mb: 1 }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', textAlign: 'center', mb: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
                 {employee.title} ({employee.department})
               </Typography>
 
@@ -128,7 +129,7 @@ export default function PodiumSection({ top3 }: Props) {
               {/* Pedestal */}
               <Box
                 sx={{
-                  width: 160,
+                  width: '80%',
                   height: place.pedestalHeight,
                   bgcolor: place.pedestalColor,
                   borderRadius: '8px 8px 0 0',
@@ -149,7 +150,7 @@ export default function PodiumSection({ top3 }: Props) {
       </Box>
 
       {/* Desktop layout: podium (2nd, 1st, 3rd) */}
-      <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'center', alignItems: 'flex-end', gap: 2, mb: 4 }}>
+      <Box sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'center', alignItems: 'flex-end', gap: 2, mb: 4, width: '80%', mx: 'auto' }}>
         {PLACES.map((place) => {
           const entry = top3[TOP3_INDEX[place.rank]];
           if (!entry) return null;
@@ -159,7 +160,7 @@ export default function PodiumSection({ top3 }: Props) {
           return (
             <Box
               key={place.rank}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}
             >
               {/* Avatar with rank badge */}
               <Box sx={{ position: 'relative', mb: 1 }}>
@@ -171,7 +172,7 @@ export default function PodiumSection({ top3 }: Props) {
                     width: place.avatarSize,
                     height: place.avatarSize,
                     fontSize: place.avatarSize * 0.35,
-                    border: place.rank === 1 ? `3px solid ${place.avatarBadgeColor}` : 'none',
+                    border: `3px solid ${place.avatarBorderColor}`,
                   }}
                 >
                   {initials}
@@ -199,16 +200,16 @@ export default function PodiumSection({ top3 }: Props) {
 
               {/* Name */}
               <Typography
-                variant={place.rank === 1 ? 'subtitle1' : 'body2'}
-                sx={{ fontWeight: 700, textAlign: 'center', maxWidth: place.rank === 1 ? 200 : 140, mb: 0.25 }}
+                variant={place.rank === 1 ? 'h6' : 'subtitle1'}
+                sx={{ fontWeight: 700, textAlign: 'center', maxWidth: place.rank === 1 ? 240 : 180, mb: 0.25 }}
               >
                 {employee.firstName} {employee.lastName}
               </Typography>
 
               {/* Title */}
               <Typography
-                variant="caption"
-                sx={{ color: 'text.secondary', textAlign: 'center', maxWidth: place.rank === 1 ? 160 : 130, mb: 1 }}
+                variant="body2"
+                sx={{ color: 'text.secondary', textAlign: 'center', mb: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}
               >
                 {employee.title} ({employee.department})
               </Typography>
@@ -228,8 +229,8 @@ export default function PodiumSection({ top3 }: Props) {
                   mb: 1.5,
                 }}
               >
-                <StarIcon sx={{ color: place.pointsColor, fontSize: 18 }} />
-                <Typography sx={{ fontWeight: 700, color: place.pointsColor, fontSize: 16 }}>
+                <StarIcon sx={{ color: place.pointsColor, fontSize: 22 }} />
+                <Typography sx={{ fontWeight: 700, color: place.pointsColor, fontSize: 20 }}>
                   {totalPoints}
                 </Typography>
               </Box>
@@ -237,7 +238,7 @@ export default function PodiumSection({ top3 }: Props) {
               {/* Pedestal */}
               <Box
                 sx={{
-                  width: 200,
+                  width: '100%',
                   height: place.pedestalHeight,
                   bgcolor: place.pedestalColor,
                   borderRadius: '8px 8px 0 0',
