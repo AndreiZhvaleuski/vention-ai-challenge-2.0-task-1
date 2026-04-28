@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import { colors } from '../theme';
 import Typography from '@mui/material/Typography';
@@ -15,8 +16,9 @@ interface Props {
 }
 
 export default function ActivityTable({ activities }: Props) {
-  const sorted = [...activities].sort(
-    (a, b) => b.date.getTime() - a.date.getTime(),
+  const sorted = useMemo(
+    () => [...activities].sort((a, b) => b.date.getTime() - a.date.getTime()),
+    [activities],
   );
 
   return (

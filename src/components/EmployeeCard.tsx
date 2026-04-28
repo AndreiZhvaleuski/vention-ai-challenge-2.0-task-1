@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { colors } from '../theme';
@@ -31,12 +32,13 @@ const CATEGORIES: Category[] = [
 
 interface Props {
   rank: number;
+  id: string;
   entry: FilteredEmployee;
   isExpanded: boolean;
-  onToggle: () => void;
+  onToggle: (id: string) => void;
 }
 
-export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Props) {
+function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
   const { employee, filteredActivities, totalPoints } = entry;
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
@@ -110,7 +112,7 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
           </Box>
 
           {/* Expand toggle */}
-          <IconButton size="small" onClick={onToggle} sx={{ ml: { xs: 'auto', sm: 0 }, color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } }}>
+          <IconButton size="small" onClick={() => onToggle(id)} sx={{ ml: { xs: 'auto', sm: 0 }, color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } }}>
             {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>
@@ -123,3 +125,5 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
     </Paper>
   );
 }
+
+export default memo(EmployeeCard);

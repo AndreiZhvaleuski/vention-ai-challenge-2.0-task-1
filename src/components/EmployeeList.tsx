@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import Alert from '@mui/material/Alert';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
@@ -38,9 +38,9 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
     scrollMargin: listOffsetRef.current,
   });
 
-  const handleToggle = (id: string) => {
+  const handleToggle = useCallback((id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
-  };
+  }, []);
 
   return (
     <div ref={listRef}>
@@ -62,9 +62,10 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
             >
               <EmployeeCard
                 rank={entry.rank}
+                id={entry.employee.id}
                 entry={entry}
                 isExpanded={expandedId === entry.employee.id}
-                onToggle={() => handleToggle(entry.employee.id)}
+                onToggle={handleToggle}
               />
             </div>
           );
