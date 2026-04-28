@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -15,32 +15,85 @@ const YEARS = ['2024', '2025'];
 const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
 const CATEGORIES = ['Education', 'Public Speaking', 'University Partnerships'];
 
+const paperSx = { p: 2, mb: 3, borderRadius: 2 };
+const rowSx = {
+  display: 'flex',
+  flexDirection: { xs: 'column', md: 'row' },
+  gap: 1.5,
+  alignItems: { xs: 'stretch', md: 'center' },
+};
+const selectFlexSx = { flex: { md: 1 } };
+const selectFieldSx = { backgroundColor: 'grey.100' };
+const searchSx = { flex: { md: 2 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } };
+const searchIconSx = { color: 'text.secondary' };
+const yearAria = { 'aria-label': 'All Years' };
+const quarterAria = { 'aria-label': 'All Quarters' };
+const categoryAria = { 'aria-label': 'All Categories' };
+
+const renderYear = (value: string) => value || 'All Years';
+const renderQuarter = (value: string) => value || 'All Quarters';
+const renderCategory = (value: string) => value || 'All Categories';
+
 interface Props {
   filters: Filters;
   setters: FilterSetters;
 }
 
-export default function FilterCard({ filters, setters }: Props) {
+function FilterCard({ filters, setters }: Props) {
   const [searchFocused, setSearchFocused] = useState(false);
+  // Local controlled value so the hook's debounced search doesn't lag the input.
+  const [searchInput, setSearchInput] = useState(filters.search);
+
+  // Re-sync if the parent resets search (e.g. via URL deep link or clear).
+  const lastExternalSearchRef = useRef(filters.search);
+  useEffect(() => {
+    if (filters.search !== lastExternalSearchRef.current && filters.search !== searchInput) {
+      setSearchInput(filters.search);
+    }
+    lastExternalSearchRef.current = filters.search;
+  }, [filters.search, searchInput]);
+
+  // Debounce propagation to the leaderboard filter (~250ms).
+  useEffect(() => {
+    if (searchInput === filters.search) return;
+    const t = setTimeout(() => setters.setSearch(searchInput), 250);
+    return () => clearTimeout(t);
+  }, [searchInput, filters.search, setters]);
+
+  const handleYear = useCallback(
+    (e: SelectChangeEvent<string>) => setters.setYear(e.target.value),
+    [setters],
+  );
+  const handleQuarter = useCallback(
+    (e: SelectChangeEvent<string>) => setters.setQuarter(e.target.value),
+    [setters],
+  );
+  const handleCategory = useCallback(
+    (e: SelectChangeEvent<string>) => setters.setCategory(e.target.value),
+    [setters],
+  );
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value),
+    [],
+  );
+  const handleSearchClear = useCallback(() => {
+    setSearchInput('');
+    setters.setSearch('');
+  }, [setters]);
+  const handleFocus = useCallback(() => setSearchFocused(true), []);
+  const handleBlur = useCallback(() => setSearchFocused(false), []);
 
   return (
-    <Paper variant="outlined" sx={{ p: 2, mb: 3, borderRadius: 2 }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          gap: 1.5,
-          alignItems: { xs: 'stretch', md: 'center' },
-        }}
-      >
-        <FormControl size="small" sx={{ flex: { md: 1 } }}>
+    <Paper variant="outlined" sx={paperSx}>
+      <Box sx={rowSx}>
+        <FormControl size="small" sx={selectFlexSx}>
           <Select
             displayEmpty
             value={filters.year}
-            sx={{ backgroundColor: 'grey.100' }}
-            onChange={(e) => setters.setYear(e.target.value)}
-            renderValue={(value) => value || 'All Years'}
-            inputProps={{ 'aria-label': 'All Years' }}
+            sx={selectFieldSx}
+            onChange={handleYear}
+            renderValue={renderYear}
+            inputProps={yearAria}
           >
             <MenuItem value="">All Years</MenuItem>
             {YEARS.map((y) => (
@@ -49,14 +102,14 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ flex: { md: 1 } }}>
+        <FormControl size="small" sx={selectFlexSx}>
           <Select
             displayEmpty
             value={filters.quarter}
-            sx={{ backgroundColor: 'grey.100' }}
-            onChange={(e) => setters.setQuarter(e.target.value)}
-            renderValue={(value) => value || 'All Quarters'}
-            inputProps={{ 'aria-label': 'All Quarters' }}
+            sx={selectFieldSx}
+            onChange={handleQuarter}
+            renderValue={renderQuarter}
+            inputProps={quarterAria}
           >
             <MenuItem value="">All Quarters</MenuItem>
             {QUARTERS.map((q) => (
@@ -65,14 +118,14 @@ export default function FilterCard({ filters, setters }: Props) {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ flex: { md: 1 } }}>
+        <FormControl size="small" sx={selectFlexSx}>
           <Select
             displayEmpty
             value={filters.category}
-            sx={{ backgroundColor: 'grey.100' }}
-            onChange={(e) => setters.setCategory(e.target.value)}
-            renderValue={(value) => value || 'All Categories'}
-            inputProps={{ 'aria-label': 'All Categories' }}
+            sx={selectFieldSx}
+            onChange={handleCategory}
+            renderValue={renderCategory}
+            inputProps={categoryAria}
           >
             <MenuItem value="">All Categories</MenuItem>
             {CATEGORIES.map((c) => (
@@ -83,22 +136,22 @@ export default function FilterCard({ filters, setters }: Props) {
 
         <TextField
           placeholder="Search employee..."
-          value={filters.search}
-          onChange={(e) => setters.setSearch(e.target.value)}
+          value={searchInput}
+          onChange={handleSearchChange}
           size="small"
-          sx={{ flex: { md: 2 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
-          onFocus={() => setSearchFocused(true)}
-          onBlur={() => setSearchFocused(false)}
+          sx={searchSx}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           slotProps={{
             input: {
               startAdornment: !searchFocused ? (
                 <InputAdornment position="start">
-                  <SearchIcon fontSize="small" sx={{ color: 'text.secondary' }} />
+                  <SearchIcon fontSize="small" sx={searchIconSx} />
                 </InputAdornment>
               ) : null,
-              endAdornment: filters.search ? (
+              endAdornment: searchInput ? (
                 <InputAdornment position="end">
-                  <IconButton size="small" onClick={() => setters.setSearch('')}>
+                  <IconButton size="small" onClick={handleSearchClear}>
                     <ClearIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>
@@ -110,3 +163,5 @@ export default function FilterCard({ filters, setters }: Props) {
     </Paper>
   );
 }
+
+export default memo(FilterCard);

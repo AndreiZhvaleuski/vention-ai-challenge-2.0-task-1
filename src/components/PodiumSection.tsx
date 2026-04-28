@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
@@ -39,9 +40,15 @@ interface Props {
   filteredIds?: Set<string>;
 }
 
-export default function PodiumSection({ top3, filteredIds }: Props) {
+export default memo(function PodiumSection({ top3, filteredIds }: Props) {
   if (top3.length === 0) return null;
 
+  return (
+    <PodiumSectionInner top3={top3} filteredIds={filteredIds} />
+  );
+});
+
+function PodiumSectionInner({ top3, filteredIds }: Props) {
   return (
     <>
       {/* Mobile layout: stacked podium cards 1 → 2 → 3 */}

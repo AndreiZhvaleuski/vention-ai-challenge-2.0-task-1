@@ -30,6 +30,30 @@ const CATEGORIES: Category[] = [
   'University Partnerships',
 ];
 
+const rowSx = { display: 'flex', alignItems: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' }, px: 2, py: 1.5, gap: 2 };
+const rankSx = { color: 'text.secondary', fontWeight: 600, minWidth: 24, textAlign: 'center' };
+const avatarSx = { width: 48, height: 48, fontSize: 17 };
+const nameBoxSx = { flex: 1, minWidth: 0 };
+const nameSx = { fontWeight: 700 };
+const titleSx = { color: 'text.secondary' };
+const xsBreakSx = { display: { xs: 'block', sm: 'none' }, width: '100%', my: 0 };
+const rightSx = { display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0, width: { xs: '100%', sm: 'auto' } };
+const catColSx = { display: 'flex', flexDirection: 'column', alignItems: 'center', color: colors.accent };
+const catCountSx = { lineHeight: 1.2, color: 'text.secondary' };
+const dividerSx = { display: { xs: 'none', sm: 'flex' } };
+const totalColSx = { display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'flex-end' };
+const totalLabelSx = { color: 'text.secondary', fontWeight: 600, letterSpacing: 0.5, lineHeight: 1.2, textAlign: 'right' };
+const totalRowSx = { display: 'flex', alignItems: 'center', gap: 0.5 };
+const starSx = { color: colors.accent, fontSize: 22 };
+const totalNumSx = { fontWeight: 700, fontSize: 20, color: colors.accent, lineHeight: 1 };
+const toggleSx = { ml: { xs: 'auto', sm: 0 }, color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } };
+
+const PAPER_BASE_SX = { mb: 2, overflow: 'hidden', borderRadius: 3, '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } };
+const PAPER_EXPANDED_SX = { ...PAPER_BASE_SX, border: `1px solid ${colors.accent}` };
+const PAPER_COLLAPSED_SX = { ...PAPER_BASE_SX, border: 'none' };
+
+const avatarImgSlotProps = { img: { loading: 'lazy' as const } };
+
 interface Props {
   rank: number;
   id: string;
@@ -43,12 +67,12 @@ function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
   return (
-    <Paper sx={{ mb: 2, overflow: 'hidden', borderRadius: 3, border: isExpanded ? `1px solid ${colors.accent}` : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' }, px: 2, py: 1.5, gap: 2 }}>
+    <Paper sx={isExpanded ? PAPER_EXPANDED_SX : PAPER_COLLAPSED_SX}>
+      <Box sx={rowSx}>
         {/* Rank */}
         <Typography
           variant="body2"
-          sx={{ color: 'text.secondary', fontWeight: 600, minWidth: 24, textAlign: 'center' }}
+          sx={rankSx}
         >
           {rank}
         </Typography>
@@ -56,63 +80,61 @@ function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
         {/* Avatar */}
         <Avatar
           src={employee.avatarUrl}
-          slotProps={{ img: { loading: 'lazy' } }}
+          slotProps={avatarImgSlotProps}
           sx={{
+            ...avatarSx,
             bgcolor: employee.avatarColor,
-            width: 48,
-            height: 48,
-            fontSize: 17,
           }}
         >
           {initials}
         </Avatar>
 
         {/* Name & title */}
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+        <Box sx={nameBoxSx}>
+          <Typography variant="subtitle2" sx={nameSx}>
             {employee.firstName} {employee.lastName}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" sx={titleSx}>
             {employee.title} ({employee.department})
           </Typography>
         </Box>
 
         {/* xs row break */}
-        <Divider sx={{ display: { xs: 'block', sm: 'none' }, width: '100%', my: 0 }} />
+        <Divider sx={xsBreakSx} />
 
         {/* Right side */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0, width: { xs: '100%', sm: 'auto' } }}>
+        <Box sx={rightSx}>
           {/* Per-category counts — icon stacked above count */}
           {CATEGORIES.map((cat) => {
             const count = filteredActivities.filter((a) => a.category === cat).length;
             if (count === 0) return null;
             return (
               <Tooltip key={cat} title={cat}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: colors.accent }}>
+                <Box sx={catColSx}>
                   {CATEGORY_ICONS[cat]}
-                  <Typography variant="caption" sx={{ lineHeight: 1.2, color: 'text.secondary' }}>{count}</Typography>
+                  <Typography variant="caption" sx={catCountSx}>{count}</Typography>
                 </Box>
               </Tooltip>
             );
           })}
 
-          <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'flex' } }} />
+          <Divider orientation="vertical" flexItem sx={dividerSx} />
 
           {/* TOTAL label + star + points */}
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'flex-end' }}>
-            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, letterSpacing: 0.5, lineHeight: 1.2, textAlign: 'right' }}>
+          <Box sx={totalColSx}>
+            <Typography variant="caption" sx={totalLabelSx}>
               TOTAL
             </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <StarIcon sx={{ color: colors.accent, fontSize: 22 }} />
-              <Typography sx={{ fontWeight: 700, fontSize: 20, color: colors.accent, lineHeight: 1 }}>
+            <Box sx={totalRowSx}>
+              <StarIcon sx={starSx} />
+              <Typography sx={totalNumSx}>
                 {totalPoints}
               </Typography>
             </Box>
           </Box>
 
           {/* Expand toggle */}
-          <IconButton size="small" onClick={() => onToggle(id)} sx={{ ml: { xs: 'auto', sm: 0 }, color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } }}>
+          <IconButton size="small" onClick={() => onToggle(id)} sx={toggleSx}>
             {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>

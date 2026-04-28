@@ -1,7 +1,27 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { generateData } from '../data/generateData';
 import type { Activity, Category } from '../types';
 import type { Employee } from '../types';
+
+// Bounded LRU-ish cache so toggling between recently-used seeds is instant.
+const SEED_CACHE_LIMIT = 5;
+const seedCache = new Map<string, Employee[]>();
+function getEmployeesForSeed(seed: string): Employee[] {
+  const cached = seedCache.get(seed);
+  if (cached) {
+    // Refresh recency.
+    seedCache.delete(seed);
+    seedCache.set(seed, cached);
+    return cached;
+  }
+  const data = generateData(seed);
+  seedCache.set(seed, data);
+  if (seedCache.size > SEED_CACHE_LIMIT) {
+    const oldest = seedCache.keys().next().value;
+    if (oldest !== undefined) seedCache.delete(oldest);
+  }
+  return data;
+}
 
 export interface FilteredEmployee {
   employee: Employee;
@@ -66,12 +86,26 @@ export function useLeaderboard() {
   const [category, setCategory] = useState<Category | ''>(initialUrlState.category as Category | '');
   const [search, setSearch] = useState(initialUrlState.search);
 
-  const setSeed = (newSeed: string) => {
+  const setSeed = useCallback((newSeed: string) => {
     setSeedState(newSeed);
-  };
+  }, []);
 
+  // Debounce URL sync — avoids hitting history.replaceState on every keystroke.
+  const urlSyncRef = useRef<number | null>(null);
   useEffect(() => {
-    syncToUrl(seed, year, quarter, category, search);
+    if (urlSyncRef.current !== null) {
+      window.clearTimeout(urlSyncRef.current);
+    }
+    urlSyncRef.current = window.setTimeout(() => {
+      syncToUrl(seed, year, quarter, category, search);
+      urlSyncRef.current = null;
+    }, 400);
+    return () => {
+      if (urlSyncRef.current !== null) {
+        window.clearTimeout(urlSyncRef.current);
+        urlSyncRef.current = null;
+      }
+    };
   }, [seed, year, quarter, category, search]);
 
   useEffect(() => {
@@ -79,7 +113,7 @@ export function useLeaderboard() {
     return () => clearTimeout(timer);
   }, [seed]);
 
-  const employees = useMemo(() => generateData(debouncedSeed), [debouncedSeed]);
+  const employees = useMemo(() => getEmployeesForSeed(debouncedSeed), [debouncedSeed]);
 
   const rankedEmployees = useMemo((): FilteredEmployee[] => {
     const result: Omit<FilteredEmployee, 'rank'>[] = [];
@@ -104,18 +138,31 @@ export function useLeaderboard() {
 
   const filteredEmployees = useMemo((): FilteredEmployee[] => {
     if (search === '') return rankedEmployees;
+    const needle = search.toLowerCase();
     return rankedEmployees.filter((e) =>
-      `${e.employee.firstName} ${e.employee.lastName}`
-        .toLowerCase()
-        .includes(search.toLowerCase()),
+      `${e.employee.firstName} ${e.employee.lastName}`.toLowerCase().includes(needle),
     );
   }, [rankedEmployees, search]);
+
+  const filters = useMemo(
+    () => ({ year, quarter, category, search }),
+    [year, quarter, category, search],
+  );
+  const setters = useMemo<FilterSetters>(
+    () => ({
+      setYear,
+      setQuarter,
+      setCategory: (v: string) => setCategory(v as Category | ''),
+      setSearch,
+    }),
+    [],
+  );
 
   return {
     seed,
     setSeed,
-    filters: { year, quarter, category, search },
-    setters: { setYear, setQuarter, setCategory, setSearch } as FilterSetters,
+    filters,
+    setters,
     rankedEmployees,
     filteredEmployees,
   };

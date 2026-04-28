@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState, useCallback } from 'react';
+import { memo, useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
 import Alert from '@mui/material/Alert';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
@@ -8,7 +8,7 @@ interface Props {
   entries: FilteredEmployee[];
 }
 
-export default function EmployeeList({ entries }: Props) {
+function EmployeeList({ entries }: Props) {
   if (entries.length === 0) {
     return (
       <Alert severity="info" sx={{ mt: 1 }}>
@@ -17,25 +17,26 @@ export default function EmployeeList({ entries }: Props) {
     );
   }
 
-  const rest = entries;
-
-  return <VirtualizedList rest={rest} />;
+  return <VirtualizedList rest={entries} />;
 }
 
-function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
+export default memo(EmployeeList);
+
+const VirtualizedList = memo(function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
   const listRef = useRef<HTMLDivElement | null>(null);
-  const listOffsetRef = useRef(0);
+  const [listOffset, setListOffset] = useState(0);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useLayoutEffect(() => {
-    listOffsetRef.current = listRef.current?.offsetTop ?? 0;
+    const next = listRef.current?.offsetTop ?? 0;
+    setListOffset((prev) => (prev === next ? prev : next));
   }, []);
 
   const virtualizer = useWindowVirtualizer({
     count: rest.length,
     estimateSize: () => 80,
     overscan: 5,
-    scrollMargin: listOffsetRef.current,
+    scrollMargin: listOffset,
   });
 
   const handleToggle = useCallback((id: string) => {
@@ -73,4 +74,4 @@ function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
       </div>
     </div>
   );
-}
+});
