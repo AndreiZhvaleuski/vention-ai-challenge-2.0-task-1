@@ -1,6 +1,10 @@
+import { useRef } from 'react';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import Alert from '@mui/material/Alert';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import EmployeeCard from './EmployeeCard';
+
+const LIST_HEIGHT = '70vh';
 
 interface Props {
   entries: FilteredEmployee[];
@@ -18,11 +22,39 @@ export default function EmployeeList({ entries }: Props) {
   // Ranks 1-3 go to the podium; this list starts at rank 4
   const rest = entries.slice(3);
 
+  return <VirtualizedList rest={rest} />;
+}
+
+function VirtualizedList({ rest }: { rest: FilteredEmployee[] }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const virtualizer = useVirtualizer({
+    count: rest.length,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => 80,
+    overscan: 5,
+  });
+
   return (
-    <>
-      {rest.map((entry, i) => (
-        <EmployeeCard key={entry.employee.id} rank={i + 4} entry={entry} />
-      ))}
-    </>
+    <div ref={scrollRef} style={{ height: LIST_HEIGHT, overflow: 'auto' }}>
+      <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+        {virtualizer.getVirtualItems().map((vItem) => (
+          <div
+            key={vItem.key}
+            data-index={vItem.index}
+            ref={virtualizer.measureElement}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              transform: `translateY(${vItem.start}px)`,
+            }}
+          >
+            <EmployeeCard key={rest[vItem.index].employee.id} rank={vItem.index + 4} entry={rest[vItem.index]} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
