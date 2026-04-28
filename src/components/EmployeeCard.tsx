@@ -40,7 +40,7 @@ export default function EmployeeCard({ rank, entry }: Props) {
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
   return (
-    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3 }}>
+    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: expanded ? '1px solid #0ea5e9' : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
         {/* Rank */}
         <Typography
@@ -52,7 +52,8 @@ export default function EmployeeCard({ rank, entry }: Props) {
 
         {/* Avatar */}
         <Avatar
-          src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${employee.id}`}
+          src={employee.avatarUrl}
+          slotProps={{ img: { loading: 'lazy' } }}
           sx={{
             bgcolor: employee.avatarColor,
             width: 48,

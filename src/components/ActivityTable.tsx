@@ -30,10 +30,10 @@ export default function ActivityTable({ activities }: Props) {
         <TableHead>
           <TableRow>
             <TableCell sx={{ fontWeight: 700 }}>ACTIVITY</TableCell>
-            <TableCell align="right" sx={{ fontWeight: 700 }}>
+            <TableCell sx={{ fontWeight: 700 }}>
               CATEGORY
             </TableCell>
-            <TableCell align="right" sx={{ fontWeight: 700 }}>
+            <TableCell sx={{ fontWeight: 700 }}>
               DATE
             </TableCell>
             <TableCell align="right" sx={{ fontWeight: 700 }}>
@@ -43,9 +43,9 @@ export default function ActivityTable({ activities }: Props) {
         </TableHead>
         <TableBody>
           {sorted.map((activity) => (
-            <TableRow key={activity.id}>
+            <TableRow key={activity.id} sx={{ '&:hover': { bgcolor: 'action.hover' } }}>
               <TableCell sx={{ width: '50%' }}>{activity.title}</TableCell>
-              <TableCell align="right">
+              <TableCell>
                 <Chip
                   label={activity.category}
                   size="small"
@@ -56,7 +56,7 @@ export default function ActivityTable({ activities }: Props) {
                   }}
                 />
               </TableCell>
-              <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
+              <TableCell sx={{ whiteSpace: 'nowrap' }}>
                 {format(activity.date, 'dd-MMM-yyyy')}
               </TableCell>
               <TableCell align="right">
