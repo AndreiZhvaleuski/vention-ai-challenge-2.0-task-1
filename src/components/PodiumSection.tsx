@@ -13,20 +13,21 @@ interface PodiumPlace {
   avatarSize: number;
   pointsColor: string;
   pillBorderColor: string;
+  pillBgColor: string;
 }
 
 // Render order desktop: [2nd, 1st, 3rd]
 const PLACES: PodiumPlace[] = [
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#cfd8dc', pedestalHeight: 150, avatarSize: 80, pointsColor: '#0ea5e9', pillBorderColor: '#e2e8f0' },
-  { rank: 1, badgeColor: '#FFD700', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 190, avatarSize: 104, pointsColor: '#b8860b', pillBorderColor: '#d4b300' },
-  { rank: 3, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#eceff1', pedestalHeight: 120, avatarSize: 72, pointsColor: '#0ea5e9', pillBorderColor: '#e2e8f0' },
+  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 150, avatarSize: 80, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 190, avatarSize: 104, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
+  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 120, avatarSize: 72, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 // Render order mobile: [1st, 2nd, 3rd]
 const PLACES_MOBILE: PodiumPlace[] = [
-  { rank: 1, badgeColor: '#FFD700', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 56, avatarSize: 80, pointsColor: '#b8860b', pillBorderColor: '#d4b300' },
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#cfd8dc', pedestalHeight: 48, avatarSize: 72, pointsColor: '#0ea5e9', pillBorderColor: '#e2e8f0' },
-  { rank: 3, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#eceff1', pedestalHeight: 40, avatarSize: 64, pointsColor: '#0ea5e9', pillBorderColor: '#e2e8f0' },
+  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 56, avatarSize: 80, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
+  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 48, avatarSize: 72, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 40, avatarSize: 64, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 const TOP3_INDEX: Record<1 | 2 | 3, number> = { 1: 0, 2: 1, 3: 2 };
@@ -111,7 +112,7 @@ export default function PodiumSection({ top3 }: Props) {
                   px: 2,
                   py: 0.5,
                   borderRadius: 10,
-                  bgcolor: 'white',
+                  bgcolor: place.pillBgColor,
                   border: '1px solid',
                   borderColor: place.pillBorderColor,
                   mb: 1.5,
@@ -220,7 +221,7 @@ export default function PodiumSection({ top3 }: Props) {
                   px: 2,
                   py: 0.5,
                   borderRadius: 10,
-                  bgcolor: 'white',
+                  bgcolor: place.pillBgColor,
                   border: '1px solid',
                   borderColor: place.pillBorderColor,
                   mb: 1.5,
