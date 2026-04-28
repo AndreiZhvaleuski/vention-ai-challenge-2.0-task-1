@@ -7,6 +7,7 @@ import type { FilteredEmployee } from '../hooks/useLeaderboard';
 interface PodiumPlace {
   rank: 1 | 2 | 3;
   badgeColor: string;
+  avatarBadgeColor: string;
   pedestalColor: string;
   pedestalHeight: number;
   avatarSize: number;
@@ -14,16 +15,16 @@ interface PodiumPlace {
 
 // Render order desktop: [2nd, 1st, 3rd]
 const PLACES: PodiumPlace[] = [
-  { rank: 2, badgeColor: '#9e9e9e', pedestalColor: '#cfd8dc', pedestalHeight: 150, avatarSize: 80 },
-  { rank: 1, badgeColor: '#FFD700', pedestalColor: '#fff9c4', pedestalHeight: 190, avatarSize: 104 },
-  { rank: 3, badgeColor: '#a1887f', pedestalColor: '#eceff1', pedestalHeight: 120, avatarSize: 72 },
+  { rank: 2, badgeColor: '#9e9e9e', avatarBadgeColor: '#94a3b8', pedestalColor: '#cfd8dc', pedestalHeight: 150, avatarSize: 80 },
+  { rank: 1, badgeColor: '#FFD700', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 190, avatarSize: 104 },
+  { rank: 3, badgeColor: '#a1887f', avatarBadgeColor: '#92400e', pedestalColor: '#eceff1', pedestalHeight: 120, avatarSize: 72 },
 ];
 
 // Render order mobile: [1st, 2nd, 3rd]
 const PLACES_MOBILE: PodiumPlace[] = [
-  { rank: 1, badgeColor: '#FFD700', pedestalColor: '#fff9c4', pedestalHeight: 56, avatarSize: 80 },
-  { rank: 2, badgeColor: '#9e9e9e', pedestalColor: '#cfd8dc', pedestalHeight: 48, avatarSize: 72 },
-  { rank: 3, badgeColor: '#a1887f', pedestalColor: '#eceff1', pedestalHeight: 40, avatarSize: 64 },
+  { rank: 1, badgeColor: '#FFD700', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 56, avatarSize: 80 },
+  { rank: 2, badgeColor: '#9e9e9e', avatarBadgeColor: '#94a3b8', pedestalColor: '#cfd8dc', pedestalHeight: 48, avatarSize: 72 },
+  { rank: 3, badgeColor: '#a1887f', avatarBadgeColor: '#92400e', pedestalColor: '#eceff1', pedestalHeight: 40, avatarSize: 64 },
 ];
 
 const TOP3_INDEX: Record<1 | 2 | 3, number> = { 1: 0, 2: 1, 3: 2 };
@@ -60,7 +61,7 @@ export default function PodiumSection({ top3 }: Props) {
                     width: place.avatarSize,
                     height: place.avatarSize,
                     fontSize: place.avatarSize * 0.35,
-                    border: place.rank === 1 ? `3px solid ${place.badgeColor}` : 'none',
+                    border: place.rank === 1 ? `3px solid ${place.avatarBadgeColor}` : 'none',
                   }}
                 >
                   {initials}
@@ -69,12 +70,11 @@ export default function PodiumSection({ top3 }: Props) {
                   sx={{
                     position: 'absolute',
                     bottom: 0,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
+                    right: 0,
                     width: 26,
                     height: 26,
                     borderRadius: '50%',
-                    bgcolor: place.badgeColor,
+                    bgcolor: place.avatarBadgeColor,
                     border: '2px solid white',
                     display: 'flex',
                     alignItems: 'center',
@@ -167,7 +167,7 @@ export default function PodiumSection({ top3 }: Props) {
                     width: place.avatarSize,
                     height: place.avatarSize,
                     fontSize: place.avatarSize * 0.35,
-                    border: place.rank === 1 ? `3px solid ${place.badgeColor}` : 'none',
+                    border: place.rank === 1 ? `3px solid ${place.avatarBadgeColor}` : 'none',
                   }}
                 >
                   {initials}
@@ -176,12 +176,11 @@ export default function PodiumSection({ top3 }: Props) {
                   sx={{
                     position: 'absolute',
                     bottom: 0,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
+                    right: 0,
                     width: 28,
                     height: 28,
                     borderRadius: '50%',
-                    bgcolor: place.badgeColor,
+                    bgcolor: place.avatarBadgeColor,
                     border: '2px solid white',
                     display: 'flex',
                     alignItems: 'center',
