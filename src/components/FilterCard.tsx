@@ -35,6 +35,7 @@ export default function FilterCard({ filters, setters }: Props) {
           <Select
             displayEmpty
             value={filters.year}
+            sx={{ backgroundColor: 'grey.100' }}
             onChange={(e) => setters.setYear(e.target.value)}
             renderValue={(value) => value || 'All Years'}
             inputProps={{ 'aria-label': 'All Years' }}
@@ -50,6 +51,7 @@ export default function FilterCard({ filters, setters }: Props) {
           <Select
             displayEmpty
             value={filters.quarter}
+            sx={{ backgroundColor: 'grey.100' }}
             onChange={(e) => setters.setQuarter(e.target.value)}
             renderValue={(value) => value || 'All Quarters'}
             inputProps={{ 'aria-label': 'All Quarters' }}
@@ -65,6 +67,7 @@ export default function FilterCard({ filters, setters }: Props) {
           <Select
             displayEmpty
             value={filters.category}
+            sx={{ backgroundColor: 'grey.100' }}
             onChange={(e) => setters.setCategory(e.target.value)}
             renderValue={(value) => value || 'All Categories'}
             inputProps={{ 'aria-label': 'All Categories' }}
@@ -81,7 +84,7 @@ export default function FilterCard({ filters, setters }: Props) {
           value={filters.search}
           onChange={(e) => setters.setSearch(e.target.value)}
           size="small"
-          sx={{ flexGrow: 1, minWidth: { sm: 180 } }}
+          sx={{ flexGrow: 1, minWidth: { sm: 180 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } }}
           slotProps={{
             input: {
               startAdornment: (
