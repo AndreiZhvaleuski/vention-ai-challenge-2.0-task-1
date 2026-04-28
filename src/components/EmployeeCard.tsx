@@ -1,5 +1,6 @@
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import { colors } from '../theme';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -40,7 +41,7 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
   return (
-    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: isExpanded ? '1px solid #0ea5e9' : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
+    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: isExpanded ? `1px solid ${colors.accent}` : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
         {/* Rank */}
         <Typography
@@ -98,15 +99,15 @@ export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Prop
               TOTAL
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <StarIcon sx={{ color: '#0ea5e9', fontSize: 22 }} />
-              <Typography sx={{ fontWeight: 700, fontSize: 20, color: '#0ea5e9', lineHeight: 1 }}>
+              <StarIcon sx={{ color: colors.accent, fontSize: 22 }} />
+              <Typography sx={{ fontWeight: 700, fontSize: 20, color: colors.accent, lineHeight: 1 }}>
                 {totalPoints}
               </Typography>
             </Box>
           </Box>
 
           {/* Expand toggle */}
-          <IconButton size="small" onClick={onToggle} sx={{ color: '#0ea5e9' }}>
+          <IconButton size="small" onClick={onToggle} sx={{ color: colors.accent }}>
             {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>

@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { colors } from '../theme';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,7 +27,7 @@ export default function ActivityTable({ activities }: Props) {
       >
         Recent Activity
       </Typography>
-      <Table size="small">
+      <Table size="small" sx={{ '& .MuiTableCell-root': { fontSize: '0.75rem' } }}>
         <TableHead>
           <TableRow>
             <TableCell sx={{ fontWeight: 700 }}>ACTIVITY</TableCell>
@@ -52,24 +53,15 @@ export default function ActivityTable({ activities }: Props) {
                   sx={{
                     bgcolor: 'grey.200',
                     color: 'text.secondary',
-                    fontSize: '0.7rem',
+                    fontSize: '0.75rem',
                   }}
                 />
               </TableCell>
               <TableCell sx={{ whiteSpace: 'nowrap' }}>
                 {format(activity.date, 'dd-MMM-yyyy')}
               </TableCell>
-              <TableCell align="right">
-                <Chip
-                  label={`+${activity.points}`}
-                  size="small"
-                  sx={{
-                    bgcolor: '#e3f2fd',
-                    color: '#1565c0',
-                    fontWeight: 700,
-                    fontSize: '0.75rem',
-                  }}
-                />
+              <TableCell align="right" sx={{ color: colors.accent, fontWeight: 700, fontSize: '0.75rem' }}>
+                {`+${activity.points}`}
               </TableCell>
             </TableRow>
           ))}

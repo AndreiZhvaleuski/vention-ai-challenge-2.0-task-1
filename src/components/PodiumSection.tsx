@@ -3,6 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
+import { colors } from '../theme';
 
 interface PodiumPlace {
   rank: 1 | 2 | 3;
@@ -18,16 +19,16 @@ interface PodiumPlace {
 
 // Render order desktop: [2nd, 1st, 3rd]
 const PLACES: PodiumPlace[] = [
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 150, avatarSize: 80, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 150, avatarSize: 80, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
   { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 190, avatarSize: 104, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
-  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 120, avatarSize: 72, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 120, avatarSize: 72, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 // Render order mobile: [1st, 2nd, 3rd]
 const PLACES_MOBILE: PodiumPlace[] = [
   { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 56, avatarSize: 80, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 48, avatarSize: 72, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
-  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 40, avatarSize: 64, pointsColor: '#0ea5e9', pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', pedestalColor: '#dce8f5', pedestalHeight: 48, avatarSize: 72, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 3, badgeColor: '#b87333', avatarBadgeColor: '#b87333', pedestalColor: '#e4edf8', pedestalHeight: 40, avatarSize: 64, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 const TOP3_INDEX: Record<1 | 2 | 3, number> = { 1: 0, 2: 1, 3: 2 };
