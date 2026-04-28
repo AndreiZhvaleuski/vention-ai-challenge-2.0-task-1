@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -32,15 +31,16 @@ const CATEGORIES: Category[] = [
 interface Props {
   rank: number;
   entry: FilteredEmployee;
+  isExpanded: boolean;
+  onToggle: () => void;
 }
 
-export default function EmployeeCard({ rank, entry }: Props) {
-  const [expanded, setExpanded] = useState(false);
+export default function EmployeeCard({ rank, entry, isExpanded, onToggle }: Props) {
   const { employee, filteredActivities, totalPoints } = entry;
   const initials = `${employee.firstName[0]}${employee.lastName[0]}`;
 
   return (
-    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: expanded ? '1px solid #0ea5e9' : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
+    <Paper sx={{ mb: 1, overflow: 'hidden', borderRadius: 3, border: isExpanded ? '1px solid #0ea5e9' : 'none', '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
         {/* Rank */}
         <Typography
@@ -106,13 +106,13 @@ export default function EmployeeCard({ rank, entry }: Props) {
           </Box>
 
           {/* Expand toggle */}
-          <IconButton size="small" onClick={() => setExpanded((p) => !p)} sx={{ color: '#0ea5e9' }}>
-            {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          <IconButton size="small" onClick={onToggle} sx={{ color: '#0ea5e9' }}>
+            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>
       </Box>
 
-      <Collapse in={expanded} unmountOnExit>
+      <Collapse in={isExpanded} unmountOnExit>
         <Divider />
         <ActivityTable activities={filteredActivities} />
       </Collapse>
