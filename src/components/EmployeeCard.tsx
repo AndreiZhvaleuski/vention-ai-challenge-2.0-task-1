@@ -69,10 +69,10 @@ function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
 
         {/* Name & title */}
         <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography variant="subtitle2" sx={{ fontWeight: 700 }} noWrap>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
             {employee.firstName} {employee.lastName}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {employee.title} ({employee.department})
           </Typography>
         </Box>

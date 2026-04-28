@@ -103,7 +103,7 @@ export default function PodiumSection({ top3, filteredIds }: Props) {
               </Typography>
 
               {/* Title */}
-              <Typography variant="caption" sx={{ color: 'text.secondary', textAlign: 'center', mb: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', textAlign: 'center', mb: 1 }}>
                 {employee.title} ({employee.department})
               </Typography>
 
@@ -212,7 +212,7 @@ export default function PodiumSection({ top3, filteredIds }: Props) {
               {/* Title */}
               <Typography
                 variant="body2"
-                sx={{ color: 'text.secondary', textAlign: 'center', mb: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}
+                sx={{ color: 'text.secondary', textAlign: 'center', mb: 1 }}
               >
                 {employee.title} ({employee.department})
               </Typography>
