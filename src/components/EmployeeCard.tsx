@@ -12,16 +12,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import StarIcon from '@mui/icons-material/Star';
 import SchoolIcon from '@mui/icons-material/School';
-import PresentToAllIcon from '@mui/icons-material/PresentToAll';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import type { Category } from '../types';
 import ActivityTable from './ActivityTable';
 
 const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
   Education: <SchoolIcon fontSize="small" />,
-  'Public Speaking': <PresentToAllIcon fontSize="small" />,
-  'University Partnerships': <AccountBalanceIcon fontSize="small" />,
+  'Public Speaking': <CoPresentIcon fontSize="small" />,
+  'University Partnerships': <EmojiEmotionsIcon fontSize="small" />,
 };
 
 const CATEGORIES: Category[] = [
