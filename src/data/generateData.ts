@@ -28,6 +28,9 @@ const FIRST_NAMES = [
   'Brian', 'Donald', 'John', 'Margaret', 'Vint',
   'David', 'Sarah', 'Robert', 'Emily', 'Michael',
   'Jessica', 'Christopher', 'Amanda', 'Richard', 'Laura',
+  'Dmitri', 'Sergei', 'Viktor', 'Natasha', 'Elena',
+  'Anastasia', 'Mikhail', 'Aleksandr', 'Pavel', 'Vladimir',
+  'Yuri', 'Tatiana', 'Olga', 'Ivan', 'Andrei',
 ];
 
 const LAST_NAMES = [
@@ -36,6 +39,9 @@ const LAST_NAMES = [
   'Kernighan', 'Knuth', 'McCarthy', 'Hamilton', 'Cerf',
   'Murphy', 'Chen', 'Patel', 'Silva', 'Johnson',
   'Williams', 'Garcia', 'Brown', 'Lee', 'Davis',
+  'Petrov', 'Sokolov', 'Popov', 'Lebedev', 'Kozlov',
+  'Novikov', 'Orlov', 'Fedorov', 'Smirnov', 'Volkov',
+  'Romanov', 'Karpov', 'Vasiliev', 'Antonov', 'Mikhailov',
 ];
 
 const TITLES = [
@@ -51,16 +57,13 @@ const TITLES = [
 ];
 
 const DEPARTMENTS = [
-  'Platform Engineering', 'Developer Relations',
-  'Cloud Infrastructure', 'Data Engineering',
-  'Frontend Guild', 'Backend Systems',
-  'DevOps & SRE', 'Mobile Engineering',
-  'Security & Compliance', 'Quality Assurance', 'Infrastructure',
-  'Product Engineering', 'Research & Innovation', 'Technical Operations',
-  'Site Reliability', 'Database Engineering', 'Machine Learning',
-  'API Platform', 'Developer Tools', 'Integration Services',
-  'Performance Engineering', 'Architecture Team', 'Testing Services',
-  'Observability Engineering', 'Deployment Systems', 'Documentation',
+  'Platform', 'DevRel', 'Cloud Infra', 'Data Eng',
+  'Frontend', 'Backend', 'DevOps', 'Mobile',
+  'Security', 'QA', 'Infrastructure', 'Product',
+  'Research', 'Tech Ops', 'SRE', 'Database',
+  'ML', 'APIs', 'Dev Tools', 'Integration',
+  'Perf Eng', 'Architecture', 'Testing', 'Observability',
+  'Deployment', 'Docs',
 ];
 
 const AVATAR_COLORS = [
@@ -239,7 +242,7 @@ export function generateData(seed: string): Employee[] {
 
   const employees: Employee[] = [];
   const usedNames = new Set<string>();
-  const count = 200;
+  const count = randInt(50, 250);
 
   for (let i = 0; i < count; i++) {
     let firstName: string;
@@ -272,7 +275,7 @@ export function generateData(seed: string): Employee[] {
         title: pick(ACTIVITY_TITLES[cat]),
         category: cat,
         date: new Date(year, month - 1, day),
-        points: randInt(1, 20),
+        points: randInt(1, 64),
         quarter,
       });
     }
