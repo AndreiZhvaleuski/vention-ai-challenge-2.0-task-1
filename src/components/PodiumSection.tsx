@@ -86,8 +86,8 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                     position: 'absolute',
                     bottom: 0,
                     right: 0,
-                    width: 26,
-                    height: 26,
+                    width: place.rank === 1 ? 40 : 32,
+                    height: place.rank === 1 ? 40 : 32,
                     borderRadius: '50%',
                     bgcolor: place.avatarBadgeColor,
                     border: '2px solid white',
@@ -96,7 +96,19 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                     justifyContent: 'center',
                   }}
                 >
-                  <Typography sx={{ fontSize: 12, fontWeight: 800, color: place.rank === 1 ? '#7a5800' : 'white', lineHeight: 1 }}>
+                  <Typography
+                    sx={{
+                      fontSize: place.rank === 1 ? 20 : 16,
+                      fontWeight: 800,
+                      color: place.rank === 1 ? '#7a5800' : 'white',
+                      lineHeight: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  >
                     {place.rank}
                   </Typography>
                 </Box>
@@ -194,8 +206,8 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                     position: 'absolute',
                     bottom: 0,
                     right: 0,
-                    width: 28,
-                    height: 28,
+                    width: place.rank === 1 ? 40 : 32,
+                    height: place.rank === 1 ? 40 : 32,
                     borderRadius: '50%',
                     bgcolor: place.avatarBadgeColor,
                     border: '2px solid white',
@@ -204,7 +216,19 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                     justifyContent: 'center',
                   }}
                 >
-                  <Typography sx={{ fontSize: 13, fontWeight: 800, color: place.rank === 1 ? '#7a5800' : 'white', lineHeight: 1 }}>
+                  <Typography
+                    sx={{
+                      fontSize: place.rank === 1 ? 19 : 15,
+                      fontWeight: 800,
+                      color: place.rank === 1 ? '#7a5800' : 'white',
+                      lineHeight: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  >
                     {place.rank}
                   </Typography>
                 </Box>
