@@ -76,6 +76,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                     height: place.avatarSize,
                     fontSize: place.avatarSize * 0.35,
                     border: `3px solid ${place.avatarBorderColor}`,
+                    boxShadow: '0 10px 24px rgba(15, 23, 42, 0.25)',
                   }}
                 >
                   {initials}
@@ -183,6 +184,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                     height: place.avatarSize,
                     fontSize: place.avatarSize * 0.35,
                     border: `3px solid ${place.avatarBorderColor}`,
+                    boxShadow: '0 10px 24px rgba(15, 23, 42, 0.25)',
                   }}
                 >
                   {initials}
