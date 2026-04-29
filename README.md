@@ -1,6 +1,6 @@
 # Vention AI Challenge — Company Leaderboard
 
-**Live demo:** https://andreizhvaleuski.github.io/vention-ai-challenge-2.0/
+**Live demo:** https://andreizhvaleuski.github.io/vention-ai-challenge-2.0-task-1/
 
 A company leaderboard app built with React, Vite, TypeScript, and MUI v9.
 
