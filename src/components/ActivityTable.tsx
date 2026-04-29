@@ -29,46 +29,43 @@ export default function ActivityTable({ activities }: Props) {
       >
         Recent Activity
       </Typography>
-      <Table size="small" sx={{ '& .MuiTableCell-root': { fontSize: '0.75rem' } }}>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ fontWeight: 700 }}>ACTIVITY</TableCell>
-            <TableCell sx={{ fontWeight: 700 }}>
-              CATEGORY
-            </TableCell>
-            <TableCell sx={{ fontWeight: 700 }}>
-              DATE
-            </TableCell>
-            <TableCell align="right" sx={{ fontWeight: 700 }}>
-              POINTS
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {sorted.map((activity) => (
-            <TableRow key={activity.id} sx={{ '&:hover': { bgcolor: 'action.hover' } }}>
-              <TableCell sx={{ width: '50%' }}>{activity.title}</TableCell>
-              <TableCell>
-                <Chip
-                  label={activity.category}
-                  size="small"
-                  sx={{
-                    bgcolor: 'grey.200',
-                    color: 'text.secondary',
-                    fontSize: '0.75rem',
-                  }}
-                />
-              </TableCell>
-              <TableCell sx={{ whiteSpace: 'nowrap' }}>
-                {format(activity.date, 'dd-MMM-yyyy')}
-              </TableCell>
-              <TableCell align="right" sx={{ color: colors.accent, fontWeight: 700, fontSize: '0.75rem' }}>
-                {`+${activity.points}`}
-              </TableCell>
+      <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
+        <Table size="small" sx={{ minWidth: 480, '& .MuiTableCell-root': { fontSize: '0.75rem' } }}>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontWeight: 700 }}>ACTIVITY</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>CATEGORY</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>DATE</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 700 }}>POINTS</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {sorted.map((activity) => (
+              <TableRow key={activity.id} sx={{ '&:hover': { bgcolor: 'action.hover' } }}>
+                <TableCell sx={{ width: '40%', minWidth: 140 }}>{activity.title}</TableCell>
+                <TableCell sx={{ minWidth: 110 }}>
+                  <Chip
+                    label={activity.category}
+                    size="small"
+                    sx={{
+                      bgcolor: 'grey.200',
+                      color: 'text.secondary',
+                      fontSize: '0.75rem',
+                      maxWidth: 130,
+                    }}
+                  />
+                </TableCell>
+                <TableCell sx={{ whiteSpace: 'nowrap', minWidth: 90 }}>
+                  {format(activity.date, 'dd-MMM-yyyy')}
+                </TableCell>
+                <TableCell align="right" sx={{ color: colors.accent, fontWeight: 700, fontSize: '0.75rem' }}>
+                  {`+${activity.points}`}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
     </Box>
   );
 }
