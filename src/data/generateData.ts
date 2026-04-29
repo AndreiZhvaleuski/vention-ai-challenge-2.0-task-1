@@ -288,8 +288,8 @@ export function generateData(seed: string): Employee[] {
       title: pick(TITLES),
       department: pick(DEPARTMENTS),
       avatarColor: pick(AVATAR_COLORS),
-      avatarUrl: `https://api.dicebear.com/9.x/avataaars/svg?seed=${id}&size=64`,
-      avatarUrlLarge: `https://api.dicebear.com/9.x/avataaars/svg?seed=${id}&size=128`,
+      avatarUrl: `https://api.dicebear.com/9.x/avataaars/svg?seed=${id}&size=64&mouth=default,smile,twinkle&eyes=default,happy,squint,side`,
+      avatarUrlLarge: `https://api.dicebear.com/9.x/avataaars/svg?seed=${id}&size=128&mouth=default,smile,twinkle&eyes=default,happy,squint,side`,
       activities,
     });
   }
