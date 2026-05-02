@@ -142,7 +142,7 @@ function FilterCard({ filters, setters, availableYears }: Props) {
               ) : null,
               endAdornment: searchInput ? (
                 <InputAdornment position="end">
-                  <IconButton size="small" onClick={handleSearchClear}>
+                  <IconButton size="small" aria-label="Clear search" onClick={handleSearchClear}>
                     <ClearIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>

@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Chip from '@mui/material/Chip';
 import { format } from 'date-fns';
 import type { Activity } from '../types';
+import { TEST_IDS } from '../testIds';
 
 interface Props {
   activities: Activity[];
@@ -45,6 +46,7 @@ export default function ActivityTable({ activities }: Props) {
                 <TableCell sx={{ color: 'black', fontWeight: 700 }}>{activity.title}</TableCell>
                 <TableCell sx={{ width: { xs: 120, sm: 200 } }}>
                   <Chip
+                    data-testid={TEST_IDS.ACTIVITY_CATEGORY}
                     label={activity.category}
                     size="small"
                     sx={{

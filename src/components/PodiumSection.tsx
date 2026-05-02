@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import { colors } from '../theme';
+import { TEST_IDS } from '../testIds';
 
 interface PodiumPlace {
   rank: 1 | 2 | 3;
@@ -63,6 +64,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
           return (
             <Box
               key={place.rank}
+              data-testid={TEST_IDS.PODIUM_ENTRY}
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
               {/* Avatar with rank badge */}
@@ -117,6 +119,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
               {/* Name */}
               <Typography
                 variant="subtitle1"
+                data-testid={TEST_IDS.PODIUM_NAME}
                 sx={{ fontWeight: 700, textAlign: 'center', mb: 0.25 }}
               >
                 {employee.firstName} {employee.lastName}
@@ -183,6 +186,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
           return (
             <Box
               key={place.rank}
+              data-testid={TEST_IDS.PODIUM_ENTRY}
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '0 0 auto', width: '33%' }}
             >
               {/* Avatar with rank badge */}
@@ -237,6 +241,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
               {/* Name */}
               <Typography
                 variant="subtitle1"
+                data-testid={TEST_IDS.PODIUM_NAME}
                 sx={{ fontWeight: 700, textAlign: 'center', mb: 0.25 }}
               >
                 {employee.firstName} {employee.lastName}

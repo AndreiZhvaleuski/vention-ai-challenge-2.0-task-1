@@ -16,6 +16,7 @@ import CoPresentIcon from '@mui/icons-material/CoPresent';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import type { Category } from '../types';
+import { TEST_IDS } from '../testIds';
 import ActivityTable from './ActivityTable';
 
 const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
@@ -91,7 +92,7 @@ function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
 
         {/* Name & title */}
         <Box sx={nameBoxSx}>
-          <Typography variant="subtitle2" sx={nameSx}>
+          <Typography variant="subtitle2" data-testid={TEST_IDS.EMPLOYEE_NAME} sx={nameSx}>
             {employee.firstName} {employee.lastName}
           </Typography>
           <Typography variant="body2" sx={titleSx}>
