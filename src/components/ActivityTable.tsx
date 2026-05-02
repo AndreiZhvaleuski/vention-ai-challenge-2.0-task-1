@@ -7,7 +7,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Chip from '@mui/material/Chip';
 import { format } from 'date-fns';
 import type { Activity } from '../types';
 import { TEST_IDS } from '../testIds';
@@ -30,39 +29,42 @@ export default function ActivityTable({ activities }: Props) {
       >
         Recent Activity
       </Typography>
-      <Box sx={{ overflowX: 'hidden', maxWidth: '100%' }}>
-        <Table size="small" sx={{ tableLayout: 'fixed', width: '100%', '& .MuiTableCell-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' }, py: 1.25 } }}>
+      <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
+        <Table size="small" sx={{ tableLayout: 'fixed', width: '100%', minWidth: 460, '& .MuiTableCell-root': { fontSize: { xs: '0.75rem', sm: '0.8rem' }, py: 1.25 } }}>
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 700, color: '#64748b' }}>ACTIVITY</TableCell>
-              <TableCell sx={{ fontWeight: 700, color: '#64748b', width: { xs: 120, sm: 200 } }}>CATEGORY</TableCell>
-              <TableCell sx={{ fontWeight: 700, color: '#64748b', width: { xs: 80, sm: 100 } }}>DATE</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 700, color: '#64748b', width: { xs: 60, sm: 60 } }}>POINTS</TableCell>
+              <TableCell sx={{ fontWeight: 700, color: '#64748b', width: { xs: 130, sm: 170 } }}>CATEGORY</TableCell>
+              <TableCell sx={{ fontWeight: 700, color: '#64748b', width: { xs: 95, sm: 110 } }}>DATE</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 700, color: '#64748b', width: { xs: 75, sm: 80 } }}>POINTS</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {sorted.map((activity) => (
               <TableRow key={activity.id} sx={{ '&:hover': { bgcolor: 'action.hover' } }}>
                 <TableCell sx={{ color: 'black', fontWeight: 700 }}>{activity.title}</TableCell>
-                <TableCell sx={{ width: { xs: 120, sm: 200 } }}>
-                  <Chip
+                <TableCell sx={{ width: { xs: 130, sm: 170 } }}>
+                  <Typography
                     data-testid={TEST_IDS.ACTIVITY_CATEGORY}
-                    label={activity.category}
-                    size="small"
                     sx={{
-                      bgcolor: 'grey.200',
+                      display: 'inline-block',
+                      fontSize: { xs: '0.7rem', sm: '0.75rem' },
                       color: '#64748b',
-                      fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                      bgcolor: 'grey.200',
+                      borderRadius: 1,
+                      px: 0.75,
+                      py: 0.25,
                       maxWidth: '100%',
-                      height: 'auto',
-                      '& .MuiChip-label': { whiteSpace: 'normal', py: 0.5 },
+                      whiteSpace: { xs: 'normal', sm: 'nowrap' },
                     }}
-                  />
+                  >
+                    {activity.category}
+                  </Typography>
                 </TableCell>
-                <TableCell sx={{ whiteSpace: 'nowrap', width: { xs: 85, sm: 100 }, color: '#64748b' }}>
+                <TableCell sx={{ whiteSpace: 'nowrap', width: { xs: 95, sm: 110 }, color: '#64748b' }}>
                   {format(activity.date, 'dd-MMM-yyyy')}
                 </TableCell>
-                <TableCell align="right" sx={{ color: colors.accent, fontWeight: 700, fontSize: '0.8rem', width: { xs: 48, sm: 60 } }}>
+                <TableCell align="right" sx={{ color: colors.accent, fontWeight: 700, fontSize: '0.8rem', width: { xs: 75, sm: 80 } }}>
                   {`+${activity.points}`}
                 </TableCell>
               </TableRow>

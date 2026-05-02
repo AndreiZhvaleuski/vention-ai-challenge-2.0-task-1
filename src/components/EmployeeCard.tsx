@@ -49,7 +49,7 @@ const starSx = { color: colors.accent, fontSize: 22 };
 const totalNumSx = { fontWeight: 700, fontSize: 20, color: colors.accent, lineHeight: 1 };
 const toggleSx = { ml: { xs: 'auto', sm: 0 }, color: colors.accent, bgcolor: `${colors.accent}22`, '&:hover': { bgcolor: `${colors.accent}44` } };
 
-const PAPER_BASE_SX = { mb: 2, overflow: 'hidden', borderRadius: 3, '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } };
+const PAPER_BASE_SX = { mb: 2, overflow: 'clip', borderRadius: 3, '&:hover': { boxShadow: '0 4px 16px rgba(0,0,0,0.18)' } };
 const PAPER_EXPANDED_SX = { ...PAPER_BASE_SX, border: `1px solid ${colors.accent}` };
 const PAPER_COLLAPSED_SX = { ...PAPER_BASE_SX, border: 'none' };
 
