@@ -166,7 +166,7 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                 }}
               >
                 <Typography
-                  sx={{ fontSize: place.pedestalHeight * 0.75, fontWeight: 900, color: place.badgeColor, opacity: 0.85, lineHeight: 1, userSelect: 'none', WebkitTextStroke: `4px ${place.badgeColor}`, paintOrder: 'stroke fill' }}
+                  sx={{ fontSize: place.pedestalHeight * 0.75, fontWeight: 900, color: place.badgeColor, opacity: 0.85, lineHeight: 1, userSelect: 'none' }}
                 >
                   {place.rank}
                 </Typography>
