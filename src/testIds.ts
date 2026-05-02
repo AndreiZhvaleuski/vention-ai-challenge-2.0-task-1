@@ -7,4 +7,5 @@ export const TEST_IDS = {
   PODIUM_NAME: 'podium-name',
   EMPLOYEE_NAME: 'employee-name',
   ACTIVITY_CATEGORY: 'activity-category',
+  TOTAL_COL: 'total-col',
 } as const;

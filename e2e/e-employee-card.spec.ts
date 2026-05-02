@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { TEST_IDS } from '../src/testIds';
 
 test.describe('E: Employee Card Expand / Collapse', () => {
   test.beforeEach(async ({ page }) => {
@@ -71,28 +72,15 @@ test.describe('E: Employee Card Expand / Collapse', () => {
     const secondCard = page.locator('[data-index="1"]');
 
     // Get the computed width of total points section from both cards
-    const firstTotalWidth = await firstCard.evaluate((el) => {
-      // Find the total column by looking for star icon
-      const starIcon = el.querySelector('[data-testid="StarIcon"]');
-      if (starIcon) {
-        const totalCol = starIcon.closest('div')?.parentElement;
-        if (totalCol) {
-          return window.getComputedStyle(totalCol).width;
-        }
-      }
-      return null;
-    });
+    const firstTotalWidth = await firstCard.evaluate((el, testId) => {
+      const totalCol = el.querySelector(`[data-testid="${testId}"]`);
+      return totalCol ? window.getComputedStyle(totalCol).width : null;
+    }, TEST_IDS.TOTAL_COL);
 
-    const secondTotalWidth = await secondCard.evaluate((el) => {
-      const starIcon = el.querySelector('[data-testid="StarIcon"]');
-      if (starIcon) {
-        const totalCol = starIcon.closest('div')?.parentElement;
-        if (totalCol) {
-          return window.getComputedStyle(totalCol).width;
-        }
-      }
-      return null;
-    });
+    const secondTotalWidth = await secondCard.evaluate((el, testId) => {
+      const totalCol = el.querySelector(`[data-testid="${testId}"]`);
+      return totalCol ? window.getComputedStyle(totalCol).width : null;
+    }, TEST_IDS.TOTAL_COL);
 
     // Both should have the same fixed width
     expect(firstTotalWidth).toBe(secondTotalWidth);

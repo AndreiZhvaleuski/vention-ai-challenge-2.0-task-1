@@ -122,7 +122,7 @@ function EmployeeCard({ rank, id, entry, isExpanded, onToggle }: Props) {
           <Divider orientation="vertical" flexItem sx={dividerSx} />
 
           {/* TOTAL label + star + points */}
-          <Box sx={totalColSx}>
+          <Box sx={totalColSx} data-testid={TEST_IDS.TOTAL_COL}>
             <Typography variant="caption" sx={totalLabelSx}>
               TOTAL
             </Typography>
