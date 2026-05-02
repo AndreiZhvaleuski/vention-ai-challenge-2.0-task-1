@@ -11,7 +11,7 @@ import EmployeeList from './components/EmployeeList';
 
 const headerRowSx = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.5 };
 const titleSx = { fontWeight: 800, color: '#0f1c2e' };
-const subtitleSx = { color: '#6b7db3', mb: 3 };
+const subtitleSx = { color: '#64748b', mb: 3 };
 const containerSx = { py: 4, overflowX: 'hidden' };
 
 function App() {

@@ -23,9 +23,9 @@ const rowSx = {
 };
 const selectFlexSx = { flex: { md: 1 } };
 const neutralOutline = {
-  '& .MuiOutlinedInput-notchedOutline': { borderColor: 'grey.300' },
-  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'grey.500' },
-  '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'text.primary', borderWidth: '1px' },
+  '& .MuiOutlinedInput-notchedOutline': { borderColor: '#000', borderWidth: '1px' },
+  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#000', borderWidth: '1px' },
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#000', borderWidth: '2px' },
 };
 const selectFieldSx = { backgroundColor: 'grey.100', ...neutralOutline };
 const searchSx = {
@@ -146,7 +146,7 @@ function FilterCard({ filters, setters, availableYears }: Props) {
           onBlur={handleBlur}
           slotProps={{
             input: {
-              startAdornment: !searchFocused && !searchInput ? (
+              startAdornment: !searchFocused ? (
                 <InputAdornment position="start">
                   <SearchIcon fontSize="small" sx={searchIconSx} />
                 </InputAdornment>
