@@ -15,7 +15,7 @@ const subtitleSx = { color: '#6b7db3', mb: 3 };
 const containerSx = { py: 4, overflowX: 'hidden' };
 
 function App() {
-  const { filters, setters, rankedEmployees, filteredEmployees } = useLeaderboard();
+  const { filters, setters, availableYears, rankedEmployees, filteredEmployees } = useLeaderboard();
 
   const top3 = useMemo(
     () => rankedEmployees.filter((e) => e.rank <= 3),
@@ -39,7 +39,7 @@ function App() {
           Top performers based on contributions and activity
         </Typography>
 
-        <FilterCard filters={filters} setters={setters} />
+        <FilterCard filters={filters} setters={setters} availableYears={availableYears} />
 
         <PodiumSection top3={top3} filteredIds={filteredIds} />
 

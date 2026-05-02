@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useMemo } from 'react';
 import { generateData } from '../data/generateData';
 import type { Activity, Category } from '../types';
 import type { Employee } from '../types';
@@ -46,60 +46,23 @@ export interface FilterSetters {
 
 export const DEFAULT_SEED = 'vention-ai-challenge-2.0';
 
-interface UrlState {
-  year: string;
-  quarter: string;
-  category: string;
-  search: string;
-}
-
-function readFromUrl(): UrlState {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    year: params.get('year') ?? '',
-    quarter: params.get('quarter') ?? '',
-    category: params.get('category') ?? '',
-    search: params.get('search') ?? '',
-  };
-}
-
-function syncToUrl(year: string, quarter: string, category: string, search: string): void {
-  const params = new URLSearchParams();
-  if (year) params.set('year', year);
-  if (quarter) params.set('quarter', quarter);
-  if (category) params.set('category', category);
-  if (search) params.set('search', search);
-  const qs = params.toString();
-  window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
-}
-
-const initialUrlState = readFromUrl();
-
 export function useLeaderboard() {
-  const [year, setYear] = useState(initialUrlState.year);
-  const [quarter, setQuarter] = useState(initialUrlState.quarter);
-  const [category, setCategory] = useState<Category | ''>(initialUrlState.category as Category | '');
-  const [search, setSearch] = useState(initialUrlState.search);
-
-  // Debounce URL sync — avoids hitting history.replaceState on every keystroke.
-  const urlSyncRef = useRef<number | null>(null);
-  useEffect(() => {
-    if (urlSyncRef.current !== null) {
-      window.clearTimeout(urlSyncRef.current);
-    }
-    urlSyncRef.current = window.setTimeout(() => {
-      syncToUrl(year, quarter, category, search);
-      urlSyncRef.current = null;
-    }, 400);
-    return () => {
-      if (urlSyncRef.current !== null) {
-        window.clearTimeout(urlSyncRef.current);
-        urlSyncRef.current = null;
-      }
-    };
-  }, [year, quarter, category, search]);
+  const [year, setYear] = useState('');
+  const [quarter, setQuarter] = useState('');
+  const [category, setCategory] = useState<Category | ''>('');
+  const [search, setSearch] = useState('');
 
   const employees = useMemo(() => getEmployeesForSeed(DEFAULT_SEED), []);
+
+  const availableYears = useMemo((): string[] => {
+    const yearSet = new Set<string>();
+    for (const emp of employees) {
+      for (const a of emp.activities) {
+        yearSet.add(String(a.date.getFullYear()));
+      }
+    }
+    return Array.from(yearSet).sort();
+  }, [employees]);
 
   const rankedEmployees = useMemo((): FilteredEmployee[] => {
     const result: Omit<FilteredEmployee, 'rank'>[] = [];
@@ -107,7 +70,7 @@ export function useLeaderboard() {
     for (const emp of employees) {
       const activities = emp.activities.filter((a) => {
         if (year && String(a.date.getFullYear()) !== year) return false;
-        if (quarter && String(a.quarter) !== quarter.replace('Q', '')) return false;
+        if (quarter && String(a.quarter) !== quarter) return false;
         if (category && a.category !== category) return false;
         return true;
       });
@@ -147,6 +110,7 @@ export function useLeaderboard() {
   return {
     filters,
     setters,
+    availableYears,
     rankedEmployees,
     filteredEmployees,
   };

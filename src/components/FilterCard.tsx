@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -11,8 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import type { Filters, FilterSetters } from '../hooks/useLeaderboard';
 
-const YEARS = ['2024', '2025'];
-const QUARTERS = ['Q1', 'Q2', 'Q3', 'Q4'];
+const QUARTERS = ['1', '2', '3', '4'];
 const CATEGORIES = ['Education', 'Public Speaking', 'University Partnerships'];
 
 const paperSx = { p: 2, mb: 3, borderRadius: 2 };
@@ -31,27 +30,19 @@ const quarterAria = { 'aria-label': 'All Quarters' };
 const categoryAria = { 'aria-label': 'All Categories' };
 
 const renderYear = (value: string) => value || 'All Years';
-const renderQuarter = (value: string) => value || 'All Quarters';
+const renderQuarter = (value: string) => value ? `Q${value}` : 'All Quarters';
 const renderCategory = (value: string) => value || 'All Categories';
 
 interface Props {
   filters: Filters;
   setters: FilterSetters;
+  availableYears: string[];
 }
 
-function FilterCard({ filters, setters }: Props) {
+function FilterCard({ filters, setters, availableYears }: Props) {
   const [searchFocused, setSearchFocused] = useState(false);
   // Local controlled value so the hook's debounced search doesn't lag the input.
   const [searchInput, setSearchInput] = useState(filters.search);
-
-  // Re-sync if the parent resets search (e.g. via URL deep link or clear).
-  const lastExternalSearchRef = useRef(filters.search);
-  useEffect(() => {
-    if (filters.search !== lastExternalSearchRef.current && filters.search !== searchInput) {
-      setSearchInput(filters.search);
-    }
-    lastExternalSearchRef.current = filters.search;
-  }, [filters.search, searchInput]);
 
   // Debounce propagation to the leaderboard filter (~250ms).
   useEffect(() => {
@@ -96,7 +87,7 @@ function FilterCard({ filters, setters }: Props) {
             inputProps={yearAria}
           >
             <MenuItem value="">All Years</MenuItem>
-            {YEARS.map((y) => (
+            {availableYears.map((y) => (
               <MenuItem key={y} value={y}>{y}</MenuItem>
             ))}
           </Select>
@@ -113,7 +104,7 @@ function FilterCard({ filters, setters }: Props) {
           >
             <MenuItem value="">All Quarters</MenuItem>
             {QUARTERS.map((q) => (
-              <MenuItem key={q} value={q}>{q}</MenuItem>
+              <MenuItem key={q} value={q}>Q{q}</MenuItem>
             ))}
           </Select>
         </FormControl>
