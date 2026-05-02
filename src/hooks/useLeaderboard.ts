@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { generateData } from '../data/generateData';
 import type { Activity, Category } from '../types';
 import type { Employee } from '../types';
@@ -47,7 +47,6 @@ export interface FilterSetters {
 export const DEFAULT_SEED = 'vention-ai-challenge-2.0';
 
 interface UrlState {
-  seed: string;
   year: string;
   quarter: string;
   category: string;
@@ -57,7 +56,6 @@ interface UrlState {
 function readFromUrl(): UrlState {
   const params = new URLSearchParams(window.location.search);
   return {
-    seed: params.get('seed') ?? DEFAULT_SEED,
     year: params.get('year') ?? '',
     quarter: params.get('quarter') ?? '',
     category: params.get('category') ?? '',
@@ -65,9 +63,8 @@ function readFromUrl(): UrlState {
   };
 }
 
-function syncToUrl(seed: string, year: string, quarter: string, category: string, search: string): void {
+function syncToUrl(year: string, quarter: string, category: string, search: string): void {
   const params = new URLSearchParams();
-  if (seed !== DEFAULT_SEED) params.set('seed', seed);
   if (year) params.set('year', year);
   if (quarter) params.set('quarter', quarter);
   if (category) params.set('category', category);
@@ -79,16 +76,10 @@ function syncToUrl(seed: string, year: string, quarter: string, category: string
 const initialUrlState = readFromUrl();
 
 export function useLeaderboard() {
-  const [seed, setSeedState] = useState<string>(initialUrlState.seed);
-  const [debouncedSeed, setDebouncedSeed] = useState(seed);
   const [year, setYear] = useState(initialUrlState.year);
   const [quarter, setQuarter] = useState(initialUrlState.quarter);
   const [category, setCategory] = useState<Category | ''>(initialUrlState.category as Category | '');
   const [search, setSearch] = useState(initialUrlState.search);
-
-  const setSeed = useCallback((newSeed: string) => {
-    setSeedState(newSeed);
-  }, []);
 
   // Debounce URL sync — avoids hitting history.replaceState on every keystroke.
   const urlSyncRef = useRef<number | null>(null);
@@ -97,7 +88,7 @@ export function useLeaderboard() {
       window.clearTimeout(urlSyncRef.current);
     }
     urlSyncRef.current = window.setTimeout(() => {
-      syncToUrl(seed, year, quarter, category, search);
+      syncToUrl(year, quarter, category, search);
       urlSyncRef.current = null;
     }, 400);
     return () => {
@@ -106,14 +97,9 @@ export function useLeaderboard() {
         urlSyncRef.current = null;
       }
     };
-  }, [seed, year, quarter, category, search]);
+  }, [year, quarter, category, search]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSeed(seed), 400);
-    return () => clearTimeout(timer);
-  }, [seed]);
-
-  const employees = useMemo(() => getEmployeesForSeed(debouncedSeed), [debouncedSeed]);
+  const employees = useMemo(() => getEmployeesForSeed(DEFAULT_SEED), []);
 
   const rankedEmployees = useMemo((): FilteredEmployee[] => {
     const result: Omit<FilteredEmployee, 'rank'>[] = [];
@@ -159,8 +145,6 @@ export function useLeaderboard() {
   );
 
   return {
-    seed,
-    setSeed,
     filters,
     setters,
     rankedEmployees,
