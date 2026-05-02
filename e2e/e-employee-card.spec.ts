@@ -72,7 +72,6 @@ test.describe('E: Employee Card Expand / Collapse', () => {
 
     // Get the computed width of total points section from both cards
     const firstTotalWidth = await firstCard.evaluate((el) => {
-      const totalCol = el.querySelector('[class*="MuiBox"]');
       // Find the total column by looking for star icon
       const starIcon = el.querySelector('[data-testid="StarIcon"]');
       if (starIcon) {
