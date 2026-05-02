@@ -157,14 +157,16 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                   width: { xs: '80%', sm: '50%', md: '80%' },
                   height: place.pedestalHeight,
                   background: place.pedestalColor,
-                  borderRadius: 2,
+                  borderRadius: '8px 8px 0 0',
+                  borderTop: `6px solid ${place.badgeColor}`,
+                  overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
                 <Typography
-                  sx={{ fontSize: place.pedestalHeight * 0.55, fontWeight: 900, color: place.badgeColor, opacity: 0.5, lineHeight: 1, userSelect: 'none' }}
+                  sx={{ fontSize: place.pedestalHeight * 0.75, fontWeight: 900, color: place.badgeColor, opacity: 0.85, lineHeight: 1, userSelect: 'none', WebkitTextStroke: `4px ${place.badgeColor}`, paintOrder: 'stroke fill' }}
                 >
                   {place.rank}
                 </Typography>
@@ -281,14 +283,16 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                   width: '100%',
                   height: place.pedestalHeight,
                   background: place.pedestalColor,
-                  borderRadius: 2,
+                  borderRadius: '8px 8px 0 0',
+                  borderTop: `6px solid ${place.badgeColor}`,
+                  overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
                 <Typography
-                  sx={{ fontSize: 80, fontWeight: 900, color: place.badgeColor, opacity: 0.5, lineHeight: 1, userSelect: 'none' }}
+                  sx={{ fontSize: 120, fontWeight: 900, color: place.badgeColor, opacity: 0.85, lineHeight: 1, userSelect: 'none', WebkitTextStroke: `4px ${place.badgeColor}`, paintOrder: 'stroke fill' }}
                 >
                   {place.rank}
                 </Typography>
