@@ -22,16 +22,16 @@ interface PodiumPlace {
 
 // Render order desktop: [2nd, 1st, 3rd]
 const PLACES: PodiumPlace[] = [
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 180, avatarSize: 108, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
-  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', avatarBorderColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 220, avatarSize: 136, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
-  { rank: 3, badgeColor: '#94a3b8', avatarBadgeColor: '#b87333', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 150, avatarSize: 96, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 2, badgeColor: '#b8c6da', avatarBadgeColor: '#94a3b8', avatarBorderColor: '#ffffff', pedestalColor: 'linear-gradient(180deg, #eaeff8 0%, #d0d8ea 100%)', pedestalHeight: 180, avatarSize: 108, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 1, badgeColor: '#f0cc40', avatarBadgeColor: '#eab308', avatarBorderColor: '#eab308', pedestalColor: 'linear-gradient(180deg, #fef9c3 0%, #fde047 100%)', pedestalHeight: 220, avatarSize: 136, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
+  { rank: 3, badgeColor: '#b8c6da', avatarBadgeColor: '#b87333', avatarBorderColor: '#ffffff', pedestalColor: 'linear-gradient(180deg, #eaeff8 0%, #d0d8ea 100%)', pedestalHeight: 150, avatarSize: 96, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 // Render order mobile: [1st, 2nd, 3rd]
 const PLACES_MOBILE: PodiumPlace[] = [
-  { rank: 1, badgeColor: '#c9a227', avatarBadgeColor: '#eab308', avatarBorderColor: '#eab308', pedestalColor: '#fff9c4', pedestalHeight: 72, avatarSize: 100, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
-  { rank: 2, badgeColor: '#94a3b8', avatarBadgeColor: '#94a3b8', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 60, avatarSize: 88, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
-  { rank: 3, badgeColor: '#94a3b8', avatarBadgeColor: '#b87333', avatarBorderColor: '#ffffff', pedestalColor: '#dce8f5', pedestalHeight: 52, avatarSize: 80, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 1, badgeColor: '#f0cc40', avatarBadgeColor: '#eab308', avatarBorderColor: '#eab308', pedestalColor: 'linear-gradient(180deg, #fef9c3 0%, #fde047 100%)', pedestalHeight: 72, avatarSize: 100, pointsColor: '#b8860b', pillBorderColor: '#e9cc6a', pillBgColor: '#fef9c3' },
+  { rank: 2, badgeColor: '#b8c6da', avatarBadgeColor: '#94a3b8', avatarBorderColor: '#ffffff', pedestalColor: 'linear-gradient(180deg, #eaeff8 0%, #d0d8ea 100%)', pedestalHeight: 60, avatarSize: 88, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
+  { rank: 3, badgeColor: '#b8c6da', avatarBadgeColor: '#b87333', avatarBorderColor: '#ffffff', pedestalColor: 'linear-gradient(180deg, #eaeff8 0%, #d0d8ea 100%)', pedestalHeight: 52, avatarSize: 80, pointsColor: colors.accent, pillBorderColor: '#bfdbfe', pillBgColor: '#ffffff' },
 ];
 
 const TOP3_INDEX: Record<1 | 2 | 3, number> = { 1: 0, 2: 1, 3: 2 };
@@ -156,16 +156,15 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                 sx={{
                   width: { xs: '80%', sm: '50%', md: '80%' },
                   height: place.pedestalHeight,
-                  bgcolor: place.pedestalColor,
-                  borderRadius: '8px 8px 0 0',
-                  borderTop: `4px solid ${place.badgeColor}`,
+                  background: place.pedestalColor,
+                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
                 <Typography
-                  sx={{ fontSize: place.pedestalHeight * 0.55, fontWeight: 900, color: place.badgeColor, opacity: 0.45, lineHeight: 1, userSelect: 'none' }}
+                  sx={{ fontSize: place.pedestalHeight * 0.55, fontWeight: 900, color: place.badgeColor, opacity: 0.5, lineHeight: 1, userSelect: 'none' }}
                 >
                   {place.rank}
                 </Typography>
@@ -281,16 +280,15 @@ function PodiumSectionInner({ top3, filteredIds }: Props) {
                 sx={{
                   width: '100%',
                   height: place.pedestalHeight,
-                  bgcolor: place.pedestalColor,
-                  borderRadius: '8px 8px 0 0',
-                  borderTop: `4px solid ${place.badgeColor}`,
+                  background: place.pedestalColor,
+                  borderRadius: 2,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
                 <Typography
-                  sx={{ fontSize: 80, fontWeight: 900, color: place.badgeColor, opacity: 0.35, lineHeight: 1, userSelect: 'none' }}
+                  sx={{ fontSize: 80, fontWeight: 900, color: place.badgeColor, opacity: 0.5, lineHeight: 1, userSelect: 'none' }}
                 >
                   {place.rank}
                 </Typography>
