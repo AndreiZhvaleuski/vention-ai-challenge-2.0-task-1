@@ -12,11 +12,19 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#f5f5f5',
+        },
+      },
+    },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          '&.Mui-selected': { backgroundColor: 'transparent !important' },
-          '&.Mui-selected:hover': { backgroundColor: 'rgba(0,0,0,0.04) !important' },
+          '&.Mui-selected': { backgroundColor: 'rgba(0,0,0,0.08) !important' },
+          '&.Mui-selected:hover': { backgroundColor: '#ffffff !important' },
+          '&:hover': { backgroundColor: '#ffffff !important' },
         },
       },
     },
