@@ -11,6 +11,16 @@ const theme = createTheme({
       default: '#f5f5f5',
     },
   },
+  components: {
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': { backgroundColor: 'transparent !important' },
+          '&.Mui-selected:hover': { backgroundColor: 'rgba(0,0,0,0.04) !important' },
+        },
+      },
+    },
+  },
 });
 
 export default theme;
