@@ -64,4 +64,71 @@ test.describe('E: Employee Card Expand / Collapse', () => {
     await firstCard.getByRole('button').click();
     await expect(firstCard.locator('table')).not.toBeVisible();
   });
+
+  test('total points section has fixed width for alignment', async ({ page }) => {
+    // Get first two cards to compare their total column widths
+    const firstCard = page.locator('[data-index="0"]');
+    const secondCard = page.locator('[data-index="1"]');
+
+    // Get the computed width of total points section from both cards
+    const firstTotalWidth = await firstCard.evaluate((el) => {
+      const totalCol = el.querySelector('[class*="MuiBox"]');
+      // Find the total column by looking for star icon
+      const starIcon = el.querySelector('[data-testid="StarIcon"]');
+      if (starIcon) {
+        const totalCol = starIcon.closest('div')?.parentElement;
+        if (totalCol) {
+          return window.getComputedStyle(totalCol).width;
+        }
+      }
+      return null;
+    });
+
+    const secondTotalWidth = await secondCard.evaluate((el) => {
+      const starIcon = el.querySelector('[data-testid="StarIcon"]');
+      if (starIcon) {
+        const totalCol = starIcon.closest('div')?.parentElement;
+        if (totalCol) {
+          return window.getComputedStyle(totalCol).width;
+        }
+      }
+      return null;
+    });
+
+    // Both should have the same fixed width
+    expect(firstTotalWidth).toBe(secondTotalWidth);
+    expect(firstTotalWidth).not.toBeNull();
+  });
+
+  test('divider alignment is consistent across cards', async ({ page }) => {
+    // Verify divider visual alignment by checking x-coordinates
+    const firstCard = page.locator('[data-index="0"]');
+    const secondCard = page.locator('[data-index="1"]');
+
+    const firstDividerBox = await firstCard.evaluate((el) => {
+      const dividers = el.querySelectorAll('hr[class*="MuiDivider"]');
+      if (dividers.length > 0) {
+        const divider = dividers[dividers.length - 1]; // Get the vertical divider
+        const rect = divider.getBoundingClientRect();
+        return rect.left;
+      }
+      return null;
+    });
+
+    const secondDividerBox = await secondCard.evaluate((el) => {
+      const dividers = el.querySelectorAll('hr[class*="MuiDivider"]');
+      if (dividers.length > 0) {
+        const divider = dividers[dividers.length - 1]; // Get the vertical divider
+        const rect = divider.getBoundingClientRect();
+        return rect.left;
+      }
+      return null;
+    });
+
+    // Both dividers should be at approximately the same horizontal position
+    // (within a small tolerance for scrollbar width differences)
+    if (firstDividerBox && secondDividerBox) {
+      expect(Math.abs(firstDividerBox - secondDividerBox)).toBeLessThan(10);
+    }
+  });
 });
