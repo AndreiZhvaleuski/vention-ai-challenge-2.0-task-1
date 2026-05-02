@@ -14,7 +14,7 @@ import type { Filters, FilterSetters } from '../hooks/useLeaderboard';
 const QUARTERS = ['1', '2', '3', '4'];
 const CATEGORIES = ['Education', 'Public Speaking', 'University Partnerships'];
 
-const paperSx = { p: 2, mb: 3, borderRadius: 2 };
+const paperSx = { p: 2, mb: 3, borderRadius: 2, borderColor: 'grey.200' };
 const rowSx = {
   display: 'flex',
   flexDirection: { xs: 'column', md: 'row' },
@@ -22,8 +22,19 @@ const rowSx = {
   alignItems: { xs: 'stretch', md: 'center' },
 };
 const selectFlexSx = { flex: { md: 1 } };
-const selectFieldSx = { backgroundColor: 'grey.100' };
-const searchSx = { flex: { md: 2 }, '& .MuiOutlinedInput-root': { backgroundColor: 'grey.100' } };
+const neutralOutline = {
+  '& .MuiOutlinedInput-notchedOutline': { borderColor: 'grey.300' },
+  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'grey.500' },
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'text.primary', borderWidth: '1px' },
+};
+const selectFieldSx = { backgroundColor: 'grey.100', ...neutralOutline };
+const searchSx = {
+  flex: { md: 2 },
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: 'grey.100',
+    ...neutralOutline,
+  },
+};
 const searchIconSx = { color: 'text.secondary' };
 const yearAria = { 'aria-label': 'All Years' };
 const quarterAria = { 'aria-label': 'All Quarters' };
@@ -135,7 +146,7 @@ function FilterCard({ filters, setters, availableYears }: Props) {
           onBlur={handleBlur}
           slotProps={{
             input: {
-              startAdornment: !searchFocused ? (
+              startAdornment: !searchFocused && !searchInput ? (
                 <InputAdornment position="start">
                   <SearchIcon fontSize="small" sx={searchIconSx} />
                 </InputAdornment>
