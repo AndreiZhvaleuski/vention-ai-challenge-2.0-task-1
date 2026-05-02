@@ -1,8 +1,11 @@
 import { memo, useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { useWindowVirtualizer } from '@tanstack/react-virtual';
-import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Typography from '@mui/material/Typography';
 import type { FilteredEmployee } from '../hooks/useLeaderboard';
 import EmployeeCard from './EmployeeCard';
+
 
 interface Props {
   entries: FilteredEmployee[];
@@ -11,9 +14,12 @@ interface Props {
 function EmployeeList({ entries }: Props) {
   if (entries.length === 0) {
     return (
-      <Alert severity="info" sx={{ mt: 1 }}>
-        No activities found matching the current filters.
-      </Alert>
+      <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 1.5, bgcolor: 'grey.200', borderRadius: 0 }}>
+        <InfoOutlinedIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+        <Typography variant="body2" color="text.secondary">
+          No activities found matching the current filters.
+        </Typography>
+      </Box>
     );
   }
 
