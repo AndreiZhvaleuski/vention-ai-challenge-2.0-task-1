@@ -259,11 +259,16 @@ export function generateData(seed: string): Employee[] {
 
     usedNames.add(fullName);
 
+    // Randomly select 1-3 categories for this employee
+    const numCategories = randInt(1, Math.min(3, CATEGORIES.length));
+    const shuffledCategories = [...CATEGORIES].sort(() => rng() - 0.5);
+    const selectedCategories = shuffledCategories.slice(0, numCategories);
+
     const activityCount = randInt(1, 18);
     const activities: Activity[] = [];
 
     for (let j = 0; j < activityCount; j++) {
-      const cat = pick(CATEGORIES);
+      const cat = pick(selectedCategories);
       const year = pick([2024, 2025]) as 2024 | 2025;
       const quarter = randInt(1, 4) as 1 | 2 | 3 | 4;
       const monthStart = (quarter - 1) * 3 + 1;
