@@ -1,5 +1,7 @@
 # Vention AI Challenge — Company Leaderboard
 
+[![Deploy to GitHub Pages](https://github.com/AndreiZhvaleuski/vention-ai-challenge-2.0-task-1/actions/workflows/deploy.yml/badge.svg)](https://github.com/AndreiZhvaleuski/vention-ai-challenge-2.0-task-1/actions/workflows/deploy.yml)
+
 **Live demo:** https://andreizhvaleuski.github.io/vention-ai-challenge-2.0-task-1/
 
 A company leaderboard app built with React, Vite, TypeScript, and MUI v9.
